@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SIA Stud. — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #07091A;
+  --bg2:      #0C0F24;
+  --bg3:      #10142D;
+  --bg4:      #161B38;
+  --cyan:     #38E8FF;
+  --cyanDim:  #1ABFDA;
+  --blue:     #4A7EFF;
+  --violet:   #9B5FFF;
+  --white:    #FFFFFF;
+  --offwhite: #D6E8F5;
+  --silver:   #8BA0BC;
+  --border:   rgba(56,232,255,0.15);
+  --borderHov:rgba(56,232,255,0.45);
+  --gf:       rgba(56,232,255,0.07);
+  --grad:     linear-gradient(135deg,#38E8FF,#4A7EFF);
+  --gradV:    linear-gradient(135deg,#38E8FF,#9B5FFF);
+  --glow:     0 0 40px rgba(56,232,255,0.35);
+  --glowBig:  0 0 80px rgba(56,232,255,0.5);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+.cur{width:10px;height:10px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:screen;box-shadow:0 0 10px var(--cyan);}
+.cur-ring{width:34px;height:34px;border:1.5px solid rgba(56,232,255,.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width .28s,height .28s,border-color .28s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:20px 56px;transition:background .4s,padding .35s;}
+nav.scrolled{background:rgba(7,9,26,.94);backdrop-filter:blur(18px);padding:13px 56px;border-bottom:1px solid var(--border);}
+.nav-logo img{height:44px;width:auto;mix-blend-mode:screen;}
+
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center;}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{border:1.5px solid rgba(56,232,255,.55)!important;padding:9px 22px;border-radius:100px;color:var(--cyan)!important;transition:all .2s!important;box-shadow:0 0 0 rgba(56,232,255,0);}
+.nav-cta:hover{background:rgba(56,232,255,.12)!important;box-shadow:0 0 22px rgba(56,232,255,.35)!important;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 56px 100px;}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:orbFloat 10s ease-in-out infinite alternate;}
+.o1{width:640px;height:640px;background:radial-gradient(circle,rgba(56,232,255,.22),transparent 70%);top:-180px;right:-80px;animation-delay:0s;}
+.o2{width:480px;height:480px;background:radial-gradient(circle,rgba(74,126,255,.18),transparent 70%);bottom:-120px;left:2%;animation-delay:3s;}
+.o3{width:300px;height:300px;background:radial-gradient(circle,rgba(155,95,255,.15),transparent 70%);top:35%;left:38%;animation-delay:6s;}
+@keyframes orbFloat{from{transform:translate(0,0) scale(1);}to{transform:translate(25px,18px) scale(1.06);}}
+
+.grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(56,232,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,232,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(56,232,255,.08);border:1px solid rgba(56,232,255,.25);border-radius:100px;padding:8px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:36px;opacity:0;animation:fadeUp .8s ease .2s forwards;}
+.bdot{width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 10px var(--cyan);}50%{opacity:.3;box-shadow:none;}}
+
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(3.5rem,9vw,8.5rem);line-height:.93;letter-spacing:-4px;margin-bottom:36px;}
+.hero-title .ln{display:block;overflow:hidden;}
+.hero-title .ln span{display:block;opacity:0;transform:translateY(115%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards;}
+.ln:nth-child(1) span{animation-delay:.28s;}
+.ln:nth-child(2) span{animation-delay:.42s;}
+.ln:nth-child(3) span{animation-delay:.56s;}
+
+.glowtext{
+  background:linear-gradient(90deg,var(--cyan),#fff,var(--blue),var(--cyan));
+  background-size:300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{from{background-position:0%}to{background-position:300%}}
+
+.hero-sub{font-size:1.12rem;line-height:1.8;color:var(--silver);max-width:520px;margin-bottom:52px;opacity:0;animation:fadeUp .8s ease .88s forwards;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease 1.05s forwards;}
+
+.btn-glow{display:inline-flex;align-items:center;gap:10px;background:var(--grad);color:var(--bg);padding:15px 38px;border-radius:100px;font-family:'Syne',sans-serif;font-weight:700;font-size:.93rem;text-decoration:none;box-shadow:0 0 32px rgba(56,232,255,.4),0 4px 24px rgba(74,126,255,.3);transition:transform .25s,box-shadow .25s;}
+.btn-glow:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 60px rgba(56,232,255,.7),0 8px 40px rgba(74,126,255,.4);}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--offwhite);padding:15px 38px;border-radius:100px;font-family:'Syne',sans-serif;font-weight:600;font-size:.93rem;text-decoration:none;border:1.5px solid rgba(56,232,255,.3);transition:all .25s;}
+.btn-outline:hover{border-color:var(--cyan);background:rgba(56,232,255,.08);transform:translateY(-3px);box-shadow:0 0 24px rgba(56,232,255,.2);}
+
+.hero-si{position:absolute;bottom:44px;left:56px;z-index:2;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp .8s ease 1.4s forwards;}
+.sbar{width:52px;height:1px;background:var(--border);position:relative;overflow:hidden;}
+.sbar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--cyan);animation:ss 2.2s ease-in-out infinite;}
+@keyframes ss{from{left:-100%}to{left:100%}}
+.slbl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--silver);}
+
+/* MARQUEE */
+.mwrap{padding:16px 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;}
+.mtrack{display:flex;white-space:nowrap;animation:mq 24s linear infinite;}
+.mi{display:inline-flex;align-items:center;gap:18px;padding:0 26px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);font-weight:500;}
+.mi span{color:var(--cyan);font-size:.8rem;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:110px 56px;position:relative;}
+.sl{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;}
+.sl::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--cyan);}
+
+/* ABOUT */
+#about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.at{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,3.8vw,3.6rem);letter-spacing:-2px;line-height:1.06;margin-bottom:24px;}
+.ab{font-size:1.02rem;line-height:1.88;color:var(--silver);margin-bottom:16px;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;}
+.stat{border-top:1.5px solid var(--border);padding-top:16px;}
+.sn{font-family:'Syne',sans-serif;font-weight:800;font-size:2.8rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px;line-height:1;}
+.sl2{font-size:.78rem;color:var(--silver);margin-top:5px;}
+
+.av{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:28px;padding:44px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;}
+.av::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(56,232,255,.1),transparent 65%);}
+.av-logo{width:210px;margin-bottom:36px;position:relative;z-index:1;filter:drop-shadow(0 0 30px rgba(56,232,255,.6));mix-blend-mode:screen;}
+.avtags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;position:relative;z-index:1;}
+.avtag{background:rgba(56,232,255,.08);border:1px solid rgba(56,232,255,.2);border-radius:100px;padding:7px 18px;font-size:.76rem;letter-spacing:.08em;color:var(--cyan);transition:background .2s,box-shadow .2s;}
+.avtag:hover{background:rgba(56,232,255,.15);box-shadow:0 0 16px rgba(56,232,255,.2);}
+
+/* SERVICES */
+#services{background:var(--bg2);}
+.shd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;gap:40px;}
+.stitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,3.8vw,3.4rem);letter-spacing:-2px;max-width:440px;line-height:1.04;}
+.ssub{max-width:300px;font-size:.97rem;line-height:1.75;color:var(--silver);}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(56,232,255,.06);border-radius:24px;overflow:hidden;}
+.sc{background:var(--bg2);padding:44px 36px;position:relative;overflow:hidden;cursor:pointer;transition:background .35s;}
+.sc-glow{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(56,232,255,.15),transparent 70%);top:-60px;right:-40px;opacity:0;transition:opacity .4s;}
+.sc:hover{background:var(--bg3);}.sc:hover .sc-glow{opacity:1;}
+.scb{position:absolute;inset:0;border:1.5px solid rgba(56,232,255,.4);border-radius:0;opacity:0;transition:opacity .35s;pointer-events:none;}
+.sc:hover .scb{opacity:1;}
+.sico{font-size:2.2rem;margin-bottom:18px;display:block;}
+.snum{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(56,232,255,.5);margin-bottom:9px;display:block;}
+.sname{font-family:'Syne',sans-serif;font-weight:700;font-size:1.18rem;margin-bottom:13px;color:var(--white);}
+.stxt{font-size:.88rem;line-height:1.78;color:var(--silver);}
+.sarr{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;text-decoration:none;}
+.sc:hover .sarr{opacity:1;transform:translateX(0);}
+
+/* PACKAGES */
+#packages{background:var(--bg);}
+.ptitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,3.8vw,3.4rem);letter-spacing:-2px;margin-bottom:10px;line-height:1.04;}
+.psub{font-size:1rem;color:var(--silver);margin-bottom:52px;max-width:500px;line-height:1.75;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.pc{background:var(--bg2);border:1px solid var(--border);border-radius:26px;padding:42px 34px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .3s;}
+.pc:hover{border-color:rgba(56,232,255,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(56,232,255,.12);}
+.pc:hover::before{opacity:1;}
+.pc.feat{border-color:rgba(56,232,255,.45);background:linear-gradient(145deg,var(--bg2),rgba(56,232,255,.05));box-shadow:0 0 50px rgba(56,232,255,.1);}
+.pc.feat::before{opacity:1;}
+.pbadge{position:absolute;top:20px;right:20px;background:var(--grad);color:var(--bg);font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:100px;box-shadow:0 0 16px rgba(56,232,255,.4);}
+.pname{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:8px;color:var(--white);}
+.pprice{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px;margin-bottom:6px;line-height:1.1;}
+.pper{font-size:.82rem;color:var(--silver);}
+.pdiv{width:100%;height:1px;background:var(--border);margin:24px 0;}
+.plist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.plist li{display:flex;align-items:flex-start;gap:10px;font-size:.89rem;color:var(--offwhite);line-height:1.55;}
+.plist li::before{content:'✦';color:var(--cyan);font-size:.58rem;margin-top:5px;flex-shrink:0;text-shadow:0 0 8px var(--cyan);}
+.plist li.dm{color:var(--silver);}.plist li.dm::before{color:var(--silver);text-shadow:none;}
+.pcta{width:100%;padding:14px;border-radius:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .25s;text-decoration:none;text-align:center;display:block;}
+.pcta-o{background:transparent;border:1.5px solid var(--border);color:var(--offwhite);}
+.pcta-o:hover{border-color:var(--cyan);background:var(--gf);color:var(--cyan);box-shadow:0 0 20px rgba(56,232,255,.15);}
+.pcta-f{background:var(--grad);border:none;color:var(--bg);box-shadow:0 0 28px rgba(56,232,255,.35);}
+.pcta-f:hover{box-shadow:0 0 50px rgba(56,232,255,.6);transform:translateY(-2px);}
+
+/* PROCESS */
+#process{background:var(--bg2);}
+.prtitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,3.8vw,3.4rem);letter-spacing:-2px;margin-bottom:52px;max-width:440px;line-height:1.04;}
+.prsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(56,232,255,.05);border-radius:20px;overflow:hidden;}
+.prstep{padding:40px 28px;background:var(--bg2);position:relative;overflow:hidden;transition:background .3s;}
+.prstep:hover{background:var(--bg3);}
+.prn{font-family:'Syne',sans-serif;font-weight:800;font-size:3.8rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.2;line-height:1;margin-bottom:20px;transition:opacity .3s;}
+.prstep:hover .prn{opacity:.5;}
+.prt{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;margin-bottom:10px;color:var(--cyan);}
+.prd{font-size:.87rem;line-height:1.75;color:var(--silver);}
+
+/* WORK */
+#work{background:var(--bg);}
+.whd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;}
+.wtitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,3.8vw,3.4rem);letter-spacing:-2px;}
+.wgrid{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:270px 270px;gap:14px;}
+.wi{border-radius:18px;overflow:hidden;position:relative;cursor:pointer;}
+.wi:nth-child(1){grid-column:1/6;grid-row:1}
+.wi:nth-child(2){grid-column:6/9;grid-row:1}
+.wi:nth-child(3){grid-column:9/13;grid-row:1/3}
+.wi:nth-child(4){grid-column:1/4;grid-row:2}
+.wi:nth-child(5){grid-column:4/9;grid-row:2}
+.wibg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .55s ease;}
+.wi:hover .wibg{transform:scale(1.07);}
+.wiov{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,26,.92),transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:26px;}
+.wi:hover .wiov{opacity:1;}
+.wcat{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:5px;}
+.wname{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;}
+.wico{font-size:3.5rem;opacity:.18;}
+.wb1{background:linear-gradient(135deg,#06101e,#0e2240,#1a2e55);}
+.wb2{background:linear-gradient(135deg,#0a0e20,#101d3a,#1a2a50);}
+.wb3{background:linear-gradient(135deg,#080c1c,#0f1c38,#152240);}
+.wb4{background:linear-gradient(135deg,#0c1020,#112035,#192840);}
+.wb5{background:linear-gradient(135deg,#07091a,#0d1830,#152335);}
+
+/* CLIENTS */
+#clients{background:var(--bg2);}
+.ctitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-2px;margin-bottom:10px;}
+.csub{color:var(--silver);font-size:.97rem;margin-bottom:50px;max-width:420px;line-height:1.75;}
+.lgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(56,232,255,.08);border-radius:20px;overflow:hidden;}
+.lslot{background:var(--bg2);padding:34px 20px;display:flex;align-items:center;justify-content:center;transition:background .3s;min-height:115px;}
+.lslot:hover{background:var(--bg3);}
+.lslot img{max-width:92px;max-height:48px;object-fit:contain;opacity:.5;filter:grayscale(1) brightness(1.6);transition:opacity .3s,filter .3s;}
+.lslot:hover img{opacity:1;filter:grayscale(0) drop-shadow(0 0 10px rgba(56,232,255,.45));}
+.lph{width:80px;height:28px;background:rgba(56,232,255,.04);border:1px dashed rgba(56,232,255,.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(56,232,255,.25);}
+
+/* CONTACT */
+#contact{background:var(--bg);}
+.cwrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.cot{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,3.8vw,3.6rem);letter-spacing:-2px;line-height:1.04;margin-bottom:20px;}
+.cob{font-size:1rem;line-height:1.85;color:var(--silver);margin-bottom:40px;}
+.cmethods{display:flex;flex-direction:column;gap:12px;}
+.cm{display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--offwhite);font-weight:500;font-size:.92rem;transition:all .22s;}
+.cm:hover{border-color:var(--cyan);background:var(--gf);transform:translateX(6px);color:var(--cyan);box-shadow:0 0 24px rgba(56,232,255,.1);}
+.cico{font-size:1.3rem;flex-shrink:0;}
+.cform{background:var(--bg2);border:1px solid var(--border);border-radius:24px;padding:44px 40px;position:relative;overflow:hidden;}
+.cform::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);}
+.cform h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;color:var(--white);margin-bottom:28px;}
+.fg{margin-bottom:18px;}
+.fg label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);margin-bottom:7px;}
+.fg input,.fg textarea,.fg select{width:100%;background:rgba(56,232,255,.04);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;resize:none;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--cyan);background:rgba(56,232,255,.06);box-shadow:0 0 0 3px rgba(56,232,255,.1);}
+.fg select option{background:var(--bg2);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fbtn{width:100%;padding:15px;border-radius:12px;border:none;background:var(--grad);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:box-shadow .25s,transform .2s;margin-top:4px;box-shadow:0 0 28px rgba(56,232,255,.3);}
+.fbtn:hover{box-shadow:0 0 50px rgba(56,232,255,.55);transform:translateY(-2px);}
+
+/* CHAT */
+.chatbtn{position:fixed;bottom:32px;right:32px;z-index:400;width:56px;height:56px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 28px rgba(56,232,255,.5);transition:transform .25s,box-shadow .25s;}
+.chatbtn:hover{transform:scale(1.12);box-shadow:0 0 56px rgba(56,232,255,.75);}
+.cpulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--cyan);animation:cp 2.2s ease-in-out infinite;opacity:0;}
+@keyframes cp{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.65);opacity:0}}
+.chatpop{position:fixed;bottom:102px;right:32px;width:314px;background:var(--bg2);border:1px solid var(--border);border-radius:24px;overflow:hidden;z-index:400;box-shadow:0 24px 80px rgba(0,0,0,.7),0 0 50px rgba(56,232,255,.1);transform:scale(.85) translateY(18px);transform-origin:bottom right;opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s;}
+.chatpop.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
+.chd{background:linear-gradient(135deg,var(--bg4),rgba(56,232,255,.14));padding:18px 18px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);}
+.cav{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#000;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+.cav img{width:100%;height:100%;object-fit:contain;padding:4px;mix-blend-mode:screen;}
+.chn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--white);}
+.chs{font-size:.72rem;color:var(--cyan);display:flex;align-items:center;gap:5px;}
+.chs::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 8px #4ade80;}
+.cmsgs{padding:18px;height:190px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.bb{max-width:84%;padding:11px 14px;border-radius:16px;font-size:.84rem;line-height:1.55;}
+.bin{background:rgba(56,232,255,.08);border:1px solid rgba(56,232,255,.15);color:var(--offwhite);border-bottom-left-radius:4px;align-self:flex-start;}
+.bout{background:var(--grad);color:var(--bg);border-bottom-right-radius:4px;align-self:flex-end;font-weight:500;}
+.cir{display:flex;gap:8px;padding:14px;border-top:1px solid var(--border);}
+.cinp{flex:1;background:rgba(56,232,255,.05);border:1px solid var(--border);border-radius:10px;padding:9px 13px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.83rem;outline:none;}
+.cinp:focus{border-color:var(--cyan);}
+.csd{background:var(--grad);border:none;border-radius:9px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 12px rgba(56,232,255,.35);}
+
+/* FOOTER */
+footer{padding:44px 56px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:.83rem;color:var(--silver);}
+.ftlinks{display:flex;gap:22px;}
+.ftlinks a{font-size:.83rem;color:var(--silver);text-decoration:none;transition:color .2s;}
+.ftlinks a:hover{color:var(--cyan);}
+.ftlogo img{height:36px;mix-blend-mode:screen;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(115%)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){
+  nav{padding:18px 24px;}nav.scrolled{padding:12px 24px;}
+  .nav-links{display:none;}
+  section{padding:80px 24px;}
+  #hero{padding:100px 24px 80px;}
+  #about{grid-template-columns:1fr;gap:40px;}
+  .sgrid{grid-template-columns:1fr;}
+  .pgrid{grid-template-columns:1fr;}
+  .prsteps{grid-template-columns:1fr 1fr;}
+  .wgrid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .wi{grid-column:auto!important;grid-row:auto!important;height:185px;}
+  .lgrid{grid-template-columns:repeat(3,1fr);}
+  .cwrap{grid-template-columns:1fr;gap:40px;}
+  .frow{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:16px;text-align:center;}
+  .shd,.whd{flex-direction:column;align-items:flex-start;gap:14px;}
+  .hero-si{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- CHAT BUTTON -->
+<button class="chatbtn" id="chatToggle">
+  <div class="cpulse"></div>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#07091A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<!-- CHAT POPUP -->
+<div class="chatpop" id="chatPop">
+  <div class="chd">
+    <div class="cav"><img src="logo.png" alt="SIA"/></div>
+    <div><div class="chn">SIA Stud.</div><div class="chs">Online · replies in minutes</div></div>
+  </div>
+  <div class="cmsgs" id="chatMsgs"><div class="bb bin">Hey! 👋 Welcome to SIA Stud. How can we help bring your vision to life?</div></div>
+  <div class="cir">
+    <input class="cinp" id="chatInp" placeholder="Type a message..."/>
+    <button class="csd" id="chatSd"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#07091A" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo"><img src="logo.png" alt="SIA Stud."/></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="bdot"></span> Creative Studio · Kuala Lumpur</div>
+    <h1 class="hero-title">
+      <span class="ln"><span>We Make</span></span>
+      <span class="ln"><span class="glowtext">Ideas</span></span>
+      <span class="ln"><span>Come Alive.</span></span>
+    </h1>
+    <p class="hero-sub">From raw concepts to polished productions — SIA Stud. crafts bold brands, cinematic visuals, and stories the world remembers.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-glow">See Our Work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#contact" class="btn-outline">Start a Project</a>
+    </div>
+  </div>
+  <div class="hero-si"><div class="sbar"></div><span class="slbl">Scroll to explore</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mwrap">
+  <div class="mtrack">
+    <div class="mi"><span>✦</span> Idea Development</div><div class="mi"><span>✦</span> Brand Identity</div><div class="mi"><span>✦</span> Video Production</div><div class="mi"><span>✦</span> Photo Editing</div><div class="mi"><span>✦</span> Creative Strategy</div><div class="mi"><span>✦</span> Graphic Design</div><div class="mi"><span>✦</span> Visual Storytelling</div><div class="mi"><span>✦</span> SIA Stud.</div>
+    <div class="mi"><span>✦</span> Idea Development</div><div class="mi"><span>✦</span> Brand Identity</div><div class="mi"><span>✦</span> Video Production</div><div class="mi"><span>✦</span> Photo Editing</div><div class="mi"><span>✦</span> Creative Strategy</div><div class="mi"><span>✦</span> Graphic Design</div><div class="mi"><span>✦</span> Visual Storytelling</div><div class="mi"><span>✦</span> SIA Stud.</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="sl">Who We Are</div>
+    <h2 class="at">We turn <em>vision</em><br>into visual power.</h2>
+    <p class="ab">SIA Stud. is a full-service creative studio for brands that refuse to be ordinary. We combine deep concept thinking with sharp production craft — from the first spark of an idea to the final frame.</p>
+    <p class="ab">Based in Kuala Lumpur, working globally. Every great project starts with one bold question: <em>what do you really want to say?</em></p>
+    <div class="stats">
+      <div class="stat"><div class="sn">50+</div><div class="sl2">Projects Done</div></div>
+      <div class="stat"><div class="sn">30+</div><div class="sl2">Happy Clients</div></div>
+      <div class="stat"><div class="sn">3+</div><div class="sl2">Years Creative</div></div>
+    </div>
+  </div>
+  <div class="av reveal">
+    <img src="logo.png" alt="SIA Stud." class="av-logo"/>
+    <div class="avtags">
+      <span class="avtag">Concept</span><span class="avtag">Brand</span><span class="avtag">Production</span>
+      <span class="avtag">Editing</span><span class="avtag">Strategy</span><span class="avtag">Identity</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="shd reveal">
+    <div><div class="sl">What We Do</div><h2 class="stitle">Creative services that hit different.</h2></div>
+    <p class="ssub">Every service built around one goal: making your brand impossible to ignore.</p>
+  </div>
+  <div class="sgrid">
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">💡</span><span class="snum">01</span><div class="sname">Idea Development</div><p class="stxt">We dig deep into your goals and market — crafting concepts that are strategically sharp and impossible to copy.</p><a href="#contact" class="sarr">Get Started →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🎨</span><span class="snum">02</span><div class="sname">Brand & Visual Identity</div><p class="stxt">Logos, color systems, typography, and brand guidelines — your complete visual language, everywhere it shows up.</p><a href="#contact" class="sarr">Get Started →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🎬</span><span class="snum">03</span><div class="sname">Video & Photo Production</div><p class="stxt">From pre-production to post-edit polish — we craft visuals that move people: ads, reels, campaigns, and more.</p><a href="#contact" class="sarr">Get Started →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">✏️</span><span class="snum">04</span><div class="sname">Graphic Design</div><p class="stxt">Posters, social media assets, packaging, pitch decks — every pixel crafted with intent to stop the scroll.</p><a href="#contact" class="sarr">Get Started →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">📱</span><span class="snum">05</span><div class="sname">Social Media Content</div><p class="stxt">Consistent, on-brand content calendars with high-quality visuals built to grow your audience and engagement.</p><a href="#contact" class="sarr">Get Started →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🚀</span><span class="snum">06</span><div class="sname">Full Campaign Package</div><p class="stxt">Strategy + brand + production + distribution — complete end-to-end for brands ready to make a real statement.</p><a href="#packages" class="sarr">See Packages →</a></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="reveal">
+    <div class="sl">Packages</div>
+    <h2 class="ptitle">Pick your package.</h2>
+    <p class="psub">Every package includes our full attention and craft. Get in touch and we'll find the right fit for your budget and goals.</p>
+  </div>
+  <div class="pgrid">
+    <!-- STARTER -->
+    <div class="pc reveal">
+      <div class="pname">Starter</div>
+      <div class="pprice">RM xxx</div>
+      <div class="pper">one-time project</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Logo Design (3 concepts)</li>
+        <li>Brand Color Palette</li>
+        <li>Typography Selection</li>
+        <li>5 Social Media Graphics</li>
+        <li>1 Round of Revisions</li>
+        <li class="dm">Video Production</li>
+        <li class="dm">Brand Guidelines Doc</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-o">Enquire Now</a>
+    </div>
+    <!-- PRO -->
+    <div class="pc feat reveal">
+      <div class="pbadge">Most Popular</div>
+      <div class="pname">Pro Studio</div>
+      <div class="pprice">RM x,xxx</div>
+      <div class="pper">complete package</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Full Brand Identity System</li>
+        <li>Logo + Variations + Source Files</li>
+        <li>Brand Guidelines Document</li>
+        <li>15 Social Media Graphics</li>
+        <li>1× Short Video / Reel (60s)</li>
+        <li>Photo Editing (10 images)</li>
+        <li>3 Rounds of Revisions</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-f">Enquire Now</a>
+    </div>
+    <!-- CAMPAIGN -->
+    <div class="pc reveal">
+      <div class="pname">Full Campaign</div>
+      <div class="pprice">RM x,xxx+</div>
+      <div class="pper">tailored to your goals</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Everything in Pro Studio</li>
+        <li>Full Creative Strategy</li>
+        <li>Multi-video Production</li>
+        <li>Campaign Photography</li>
+        <li>Content Calendar (1 month)</li>
+        <li>Unlimited Revisions</li>
+        <li>Dedicated Account Manager</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-o">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sl reveal">How We Work</div>
+  <h2 class="prtitle reveal">Our creative process,<br>step by step.</h2>
+  <div class="prsteps">
+    <div class="prstep reveal"><div class="prn">01</div><div class="prt">Discover</div><p class="prd">Deep listening — understanding your brand, audience, goals, and the story you want to tell.</p></div>
+    <div class="prstep reveal"><div class="prn">02</div><div class="prt">Conceive</div><p class="prd">Brainstorming, mood boards, and concept development — turning raw ideas into sharp creative direction.</p></div>
+    <div class="prstep reveal"><div class="prn">03</div><div class="prt">Create</div><p class="prd">Shooting, designing, editing — every detail crafted with precision to match and exceed your vision.</p></div>
+    <div class="prstep reveal"><div class="prn">04</div><div class="prt">Deliver</div><p class="prd">Final review, refinements, and delivery in all formats. We're with you from handoff to launch.</p></div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="whd reveal">
+    <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
+    <a href="#contact" class="btn-outline">Start Your Project →</a>
+  </div>
+  <div class="wgrid reveal">
+    <div class="wi"><div class="wibg wb1"><span class="wico">🎨</span></div><div class="wiov"><div><span class="wcat">Brand Identity</span><div class="wname">Brand Refresh Campaign</div></div></div></div>
+    <div class="wi"><div class="wibg wb2"><span class="wico">🎬</span></div><div class="wiov"><div><span class="wcat">Video Production</span><div class="wname">Product Launch Film</div></div></div></div>
+    <div class="wi"><div class="wibg wb3"><span class="wico">💡</span></div><div class="wiov"><div><span class="wcat">Concept Direction</span><div class="wname">Creative Series</div></div></div></div>
+    <div class="wi"><div class="wibg wb4"><span class="wico">📸</span></div><div class="wiov"><div><span class="wcat">Photo Editing</span><div class="wname">Editorial Shoot</div></div></div></div>
+    <div class="wi"><div class="wibg wb5"><span class="wico">🚀</span></div><div class="wiov"><div><span class="wcat">Full Campaign</span><div class="wname">Brand + Video Package</div></div></div></div>
+  </div>
+</section>
+
+<!-- CLIENTS ──────────────────────────────────────────────────────
+  HOW TO ADD CLIENT LOGOS:
+  1. Put your client logo image file in the same folder as this HTML
+  2. Find a slot below and replace:
+       <div class="lph">Logo 1</div>
+     With:
+       <img src="YOUR-FILE.png" alt="Client Name"/>
+  Up to 12 logos supported.
+─────────────────────────────────────────────────────────────── -->
+<section id="clients">
+  <div class="reveal">
+    <div class="sl">Our Clients</div>
+    <h2 class="ctitle">Brands that trust us.</h2>
+    <p class="csub">We've had the privilege of working with amazing clients across various industries.</p>
+  </div>
+  <div class="lgrid reveal">
+    <div class="lslot"><div class="lph">Logo 1</div></div>
+    <div class="lslot"><div class="lph">Logo 2</div></div>
+    <div class="lslot"><div class="lph">Logo 3</div></div>
+    <div class="lslot"><div class="lph">Logo 4</div></div>
+    <div class="lslot"><div class="lph">Logo 5</div></div>
+    <div class="lslot"><div class="lph">Logo 6</div></div>
+    <div class="lslot"><div class="lph">Logo 7</div></div>
+    <div class="lslot"><div class="lph">Logo 8</div></div>
+    <div class="lslot"><div class="lph">Logo 9</div></div>
+    <div class="lslot"><div class="lph">Logo 10</div></div>
+    <div class="lslot"><div class="lph">Logo 11</div></div>
+    <div class="lslot"><div class="lph">Logo 12</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="cwrap">
+    <div class="reveal">
+      <div class="sl">Get In Touch</div>
+      <h2 class="cot">Let's create<br>something great.</h2>
+      <p class="cob">Whether you have a full brief or just a vague idea — we'd love to hear from you. Drop us a message and we'll reply within 24 hours.</p>
+      <div class="cmethods">
+        <a href="mailto:info@siastud.com" class="cm"><span class="cico">✉️</span> info@siastud.com</a>
+        <a href="https://wa.me/60162726283" class="cm" target="_blank"><span class="cico">📞</span> +60 16-272 6283</a>
+        <a href="https://instagram.com/siastud" class="cm" target="_blank"><span class="cico">📷</span> @siastud — Instagram</a>
+      </div>
+    </div>
+    <div class="cform reveal">
+      <h3>Send a Message</h3>
+      <div class="frow">
+        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"/></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+      </div>
+      <div class="fg">
+        <label>Enquiry Type</label>
+        <select>
+          <option value="">Select enquiry type...</option>
+          <option>Idea Development & Concept</option>
+          <option>Brand & Visual Identity</option>
+          <option>Video Production</option>
+          <option>Photo Editing</option>
+          <option>Graphic Design</option>
+          <option>Social Media Content</option>
+          <option>Starter Package</option>
+          <option>Pro Studio Package</option>
+          <option>Full Campaign Package</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Budget Range</label>
+        <select>
+          <option value="">Select budget range...</option>
+          <option>Under RM 1,000</option>
+          <option>RM 1,000 – RM 3,000</option>
+          <option>RM 3,000 – RM 7,000</option>
+          <option>RM 7,000+</option>
+          <option>Let's discuss</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tell Us About Your Project</label><textarea rows="3" placeholder="Share your idea, timeline, or any details..."></textarea></div>
+      <button class="fbtn" onclick="handleSubmit(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#hero" class="ftlogo"><img src="logo.png" alt="SIA Stud."/></a>
+  <p>© 2025 SIA Stud. All rights reserved.</p>
+  <div class="ftlinks">
+    <a href="#about">About</a><a href="#services">Services</a>
+    <a href="#packages">Packages</a><a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+    <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
+  </div>
+</footer>
+
+<script>
+/* ── ANALYTICS ── */
+(function(){
+  const VK='sia_views',EK='sia_events';
+  if(!sessionStorage.getItem('sia_s')){
+    sessionStorage.setItem('sia_s','1');
+    const v=JSON.parse(localStorage.getItem(VK)||'[]');
+    v.push({t:new Date().toISOString(),ref:document.referrer||'direct',dev:window.innerWidth<768?'mobile':window.innerWidth<1200?'tablet':'desktop',w:window.innerWidth});
+    if(v.length>600)v.splice(0,v.length-600);
+    localStorage.setItem(VK,JSON.stringify(v));
+  }
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'section',id:e.target.id,t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));}});},{threshold:.4});
+  document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+  document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
+})();
+
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),crng=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
+(function a(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;crng.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.sc,.wi,.pc,.lslot').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{crng.style.width='56px';crng.style.height='56px';crng.style.borderColor='rgba(56,232,255,.9)';});
+  el.addEventListener('mouseleave',()=>{crng.style.width='34px';crng.style.height='34px';crng.style.borderColor='rgba(56,232,255,.6)';});
+});
+
+/* ── NAV ── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+
+/* ── REVEAL ── */
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
+
+/* ── CHAT ── */
+const ct=document.getElementById('chatToggle'),cp=document.getElementById('chatPop'),cm=document.getElementById('chatMsgs'),ci=document.getElementById('chatInp'),cs=document.getElementById('chatSd');
+let open=false;
+ct.addEventListener('click',()=>{open=!open;cp.classList.toggle('open',open);if(open)ci.focus();});
+const reps=["Thanks for reaching out! 🙌 We'll get back to you as soon as possible.","That sounds like an exciting project! Fill the contact form and we'll be in touch.","We'd love to work with you — drop us an email at info@siastud.com 📧","Check out our packages section for more details, or just reach out!","Great question! Our team will reply within 24 hours. 🎨"];
+function snd(){const t=ci.value.trim();if(!t)return;const b=document.createElement('div');b.className='bb bout';b.textContent=t;cm.appendChild(b);ci.value='';cm.scrollTop=cm.scrollHeight;setTimeout(()=>{const r=document.createElement('div');r.className='bb bin';r.textContent=reps[Math.floor(Math.random()*reps.length)];cm.appendChild(r);cm.scrollTop=cm.scrollHeight;},950);}
+cs.addEventListener('click',snd);ci.addEventListener('keydown',e=>{if(e.key==='Enter')snd();});
+
+/* ── FORM ── */
+function handleSubmit(b){b.textContent='✓ Sent! We\'ll be in touch soon.';b.style.background='linear-gradient(135deg,#4ade80,#22d3ee)';setTimeout(()=>{b.textContent='Send Message →';b.style.background='';},3500);}
+</script>
+</body>
+</html>
