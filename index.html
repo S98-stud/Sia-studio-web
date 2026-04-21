@@ -180,18 +180,16 @@ section{padding:110px 56px;position:relative;}
 .wi:nth-child(3){grid-column:9/13;grid-row:1/3}
 .wi:nth-child(4){grid-column:1/4;grid-row:2}
 .wi:nth-child(5){grid-column:4/9;grid-row:2}
-.wibg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .55s ease;}
+.wibg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .55s ease;background:linear-gradient(135deg,#06101e,#0e1e3a);}
 .wi:hover .wibg{transform:scale(1.07);}
+.wibg img{width:100%;height:100%;object-fit:cover;display:block;}
 .wiov{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,26,.92),transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:26px;}
 .wi:hover .wiov{opacity:1;}
+.wiov-inner{display:flex;justify-content:space-between;align-items:flex-end;width:100%;}
 .wcat{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:5px;}
 .wname{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;}
-.wico{font-size:3.5rem;opacity:.18;}
-.wb1{background:linear-gradient(135deg,#06101e,#0e2240,#1a2e55);}
-.wb2{background:linear-gradient(135deg,#0a0e20,#101d3a,#1a2a50);}
-.wb3{background:linear-gradient(135deg,#080c1c,#0f1c38,#152240);}
-.wb4{background:linear-gradient(135deg,#0c1020,#112035,#192840);}
-.wb5{background:linear-gradient(135deg,#07091a,#0d1830,#152335);}
+.wplay{width:44px;height:44px;border-radius:50%;background:rgba(56,232,255,.15);border:1.5px solid rgba(56,232,255,.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(4px);}
+.wi{text-decoration:none;color:var(--white);}
 
 /* FEATURED VIDEO */
 .wvid-wrap{margin-bottom:20px;}
@@ -477,11 +475,26 @@ footer p{font-size:.83rem;color:var(--silver);}
     </div>
   </div>
   <div class="wgrid reveal">
-    <div class="wi"><div class="wibg wb1"><span class="wico">🎨</span></div><div class="wiov"><div><span class="wcat">Brand Identity</span><div class="wname">Brand Refresh Campaign</div></div></div></div>
-    <div class="wi"><div class="wibg wb2"><span class="wico">🎬</span></div><div class="wiov"><div><span class="wcat">Video Production</span><div class="wname">Product Launch Film</div></div></div></div>
-    <div class="wi"><div class="wibg wb3"><span class="wico">💡</span></div><div class="wiov"><div><span class="wcat">Concept Direction</span><div class="wname">Creative Series</div></div></div></div>
-    <div class="wi"><div class="wibg wb4"><span class="wico">📸</span></div><div class="wiov"><div><span class="wcat">Photo Editing</span><div class="wname">Editorial Shoot</div></div></div></div>
-    <div class="wi"><div class="wibg wb5"><span class="wico">🚀</span></div><div class="wiov"><div><span class="wcat">Full Campaign</span><div class="wname">Brand + Video Package</div></div></div></div>
+    <a class="wi" href="https://drive.google.com/file/d/1teeGUdxv7u_RwedAoMV65b59oSY-6FlM/preview" target="_blank" rel="noopener">
+      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1teeGUdxv7u_RwedAoMV65b59oSY-6FlM&sz=w600" alt="Nivea Campaign"/></div>
+      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Brand Campaign</span><div class="wname">Nivea × SIA Stud.</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    </a>
+    <a class="wi" href="https://drive.google.com/file/d/1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY/preview" target="_blank" rel="noopener">
+      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY&sz=w600" alt="1664 CNY Campaign"/></div>
+      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Commercial</span><div class="wname">1664 Against CNY</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    </a>
+    <a class="wi" href="https://drive.google.com/file/d/1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE/preview" target="_blank" rel="noopener">
+      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE&sz=w600" alt="Outkast KL 2025"/></div>
+      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Event Film</span><div class="wname">Outkast KL 2025</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    </a>
+    <a class="wi" href="https://drive.google.com/file/d/1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg/preview" target="_blank" rel="noopener">
+      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg&sz=w600" alt="Ecochella"/></div>
+      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Event Campaign</span><div class="wname">Ecochella</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    </a>
+    <a class="wi" href="https://drive.google.com/file/d/10rkrawLFow7xenI-kVzqFGNzbtzpJcpN/preview" target="_blank" rel="noopener">
+      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=10rkrawLFow7xenI-kVzqFGNzbtzpJcpN&sz=w600" alt="Anemax"/></div>
+      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Brand Film</span><div class="wname">Anemax</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    </a>
   </div>
 </section>
 
@@ -501,18 +514,18 @@ footer p{font-size:.83rem;color:var(--silver);}
     <p class="csub">We've had the privilege of working with amazing clients across various industries.</p>
   </div>
   <div class="lgrid reveal">
-    <div class="lslot"><div class="lph">Logo 1</div></div>
-    <div class="lslot"><div class="lph">Logo 2</div></div>
-    <div class="lslot"><div class="lph">Logo 3</div></div>
-    <div class="lslot"><div class="lph">Logo 4</div></div>
-    <div class="lslot"><div class="lph">Logo 5</div></div>
-    <div class="lslot"><div class="lph">Logo 6</div></div>
-    <div class="lslot"><div class="lph">Logo 7</div></div>
-    <div class="lslot"><div class="lph">Logo 8</div></div>
-    <div class="lslot"><div class="lph">Logo 9</div></div>
-    <div class="lslot"><div class="lph">Logo 10</div></div>
-    <div class="lslot"><div class="lph">Logo 11</div></div>
-    <div class="lslot"><div class="lph">Logo 12</div></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Tencent_Logo.svg" alt="Tencent"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/HSBC_logo_%282018%29.svg" alt="HSBC"/></div>
+    <div class="lslot"><img src="https://download.logo.wine/logo/U_Mobile/U_Mobile-Logo.wine.png" alt="U Mobile"/></div>
+    <div class="lslot"><img src="https://www.begolfpro.com/wp-content/uploads/2020/12/original-logo.png" alt="BeGolfPro"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Grab_Logo.svg" alt="Grab"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/NIVEA_logo.svg" alt="Nivea"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/AirAsia_New_Logo.svg" alt="AirAsia"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Shopee.svg" alt="Shopee"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"/></div>
   </div>
 </section>
 
