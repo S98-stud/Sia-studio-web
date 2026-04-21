@@ -180,16 +180,28 @@ section{padding:110px 56px;position:relative;}
 .wi:nth-child(3){grid-column:9/13;grid-row:1/3}
 .wi:nth-child(4){grid-column:1/4;grid-row:2}
 .wi:nth-child(5){grid-column:4/9;grid-row:2}
-.wibg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .55s ease;background:linear-gradient(135deg,#06101e,#0e1e3a);}
-.wi:hover .wibg{transform:scale(1.07);}
-.wibg img{width:100%;height:100%;object-fit:cover;display:block;}
-.wiov{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,26,.92),transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:26px;}
-.wi:hover .wiov{opacity:1;}
-.wiov-inner{display:flex;justify-content:space-between;align-items:flex-end;width:100%;}
-.wcat{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:5px;}
-.wname{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;}
-.wplay{width:44px;height:44px;border-radius:50%;background:rgba(56,232,255,.15);border:1.5px solid rgba(56,232,255,.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(4px);}
-.wi{text-decoration:none;color:var(--white);}
+/* VIDEO TABS */
+.wtabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+.wtab{background:transparent;border:1.5px solid var(--border);border-radius:100px;padding:9px 24px;color:var(--silver);font-family:'Syne',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.06em;cursor:pointer;transition:all .22s;white-space:nowrap;}
+.wtab.active,.wtab:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(56,232,255,.07);}
+
+/* VIDEO CARD GRID */
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;transition:grid-template-columns .2s;}
+.vc{border-radius:16px;overflow:hidden;background:var(--bg3);text-decoration:none;color:var(--white);display:block;transition:transform .3s,box-shadow .3s;border:1px solid transparent;}
+.vc:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(56,232,255,.1);border-color:var(--border);}
+.vc-thumb{position:relative;overflow:hidden;aspect-ratio:16/9;}
+.vc-thumb.reel{aspect-ratio:9/16;}
+.vc-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.vc:hover .vc-thumb img{transform:scale(1.06);}
+.vc-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(7,9,26,.45);opacity:0;transition:opacity .3s;}
+.vc:hover .vc-play{opacity:1;}
+.vc-info{padding:14px 16px 16px;}
+.vc-cat{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:5px;}
+.vc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;line-height:1.3;}
+.vc.hidden{display:none;}
+.vmore-wrap{text-align:center;margin-top:32px;}
+.vmore{background:transparent;border:1.5px solid var(--border);border-radius:100px;padding:12px 40px;color:var(--offwhite);font-family:'Syne',sans-serif;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .25s;display:none;}
+.vmore:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(56,232,255,.07);}
 
 /* FEATURED VIDEO */
 .wvid-wrap{margin-bottom:20px;}
@@ -202,12 +214,11 @@ section{padding:110px 56px;position:relative;}
 #clients{background:var(--bg2);}
 .ctitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-2px;margin-bottom:10px;}
 .csub{color:var(--silver);font-size:.97rem;margin-bottom:50px;max-width:420px;line-height:1.75;}
-.lgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(56,232,255,.08);border-radius:20px;overflow:hidden;}
+.lgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(56,232,255,.08);border-radius:20px;overflow:hidden;}
 .lslot{background:var(--bg2);padding:34px 20px;display:flex;align-items:center;justify-content:center;transition:background .3s;min-height:115px;}
 .lslot:hover{background:var(--bg3);}
-.lslot img{max-width:92px;max-height:48px;object-fit:contain;opacity:.5;filter:grayscale(1) brightness(1.6);transition:opacity .3s,filter .3s;}
-.lslot:hover img{opacity:1;filter:grayscale(0) drop-shadow(0 0 10px rgba(56,232,255,.45));}
-.lph{width:80px;height:28px;background:rgba(56,232,255,.04);border:1px dashed rgba(56,232,255,.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(56,232,255,.25);}
+.lslot img{max-width:110px;max-height:52px;object-fit:contain;filter:brightness(0) invert(1);opacity:.55;transition:opacity .3s,filter .3s;}
+.lslot:hover img{opacity:1;filter:none;}
 
 /* CONTACT */
 #contact{background:var(--bg);}
@@ -468,45 +479,111 @@ footer p{font-size:.83rem;color:var(--silver);}
     <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
     <a href="#contact" class="btn-outline">Start Your Project →</a>
   </div>
+
+  <!-- Featured Video -->
   <div class="wvid-wrap reveal">
-    <div class="wvid-label">Featured — Video Production</div>
+    <div class="wvid-label">Featured — TikTok V4</div>
     <div class="wvid">
       <iframe src="https://drive.google.com/file/d/1t6jOyBN2GBPwtsiAH45BNGmaRve2Wrp7/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
   </div>
-  <div class="wgrid reveal">
-    <a class="wi" href="https://drive.google.com/file/d/1teeGUdxv7u_RwedAoMV65b59oSY-6FlM/preview" target="_blank" rel="noopener">
-      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1teeGUdxv7u_RwedAoMV65b59oSY-6FlM&sz=w600" alt="Nivea Campaign"/></div>
-      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Brand Campaign</span><div class="wname">Nivea × SIA Stud.</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+
+  <!-- Category Tabs -->
+  <div class="wtabs reveal">
+    <button class="wtab active" data-cat="brand">Brand Films</button>
+    <button class="wtab" data-cat="event">Event Films</button>
+    <button class="wtab" data-cat="reels">Reels</button>
+    <button class="wtab" data-cat="music">Music Videos</button>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="vgrid reveal" id="vGrid">
+
+    <!-- BRAND FILMS -->
+    <a class="vc" data-cat="brand" href="https://drive.google.com/file/d/1teeGUdxv7u_RwedAoMV65b59oSY-6FlM/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1teeGUdxv7u_RwedAoMV65b59oSY-6FlM&sz=w600" alt="Nivea"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Brand Campaign</div><div class="vc-name">Nivea × SIA Stud.</div></div>
     </a>
-    <a class="wi" href="https://drive.google.com/file/d/1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY/preview" target="_blank" rel="noopener">
-      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY&sz=w600" alt="1664 CNY Campaign"/></div>
-      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Commercial</span><div class="wname">1664 Against CNY</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    <a class="vc" data-cat="brand" href="https://drive.google.com/file/d/1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1pkM0o2rHm5ekD_Rj_GCVL3_adNShyqsY&sz=w600" alt="1664 CNY"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Commercial</div><div class="vc-name">1664 Against CNY</div></div>
     </a>
-    <a class="wi" href="https://drive.google.com/file/d/1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE/preview" target="_blank" rel="noopener">
-      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE&sz=w600" alt="Outkast KL 2025"/></div>
-      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Event Film</span><div class="wname">Outkast KL 2025</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    <a class="vc" data-cat="brand" href="https://drive.google.com/file/d/10rkrawLFow7xenI-kVzqFGNzbtzpJcpN/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=10rkrawLFow7xenI-kVzqFGNzbtzpJcpN&sz=w600" alt="Anemax"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Brand Film</div><div class="vc-name">Anemax</div></div>
     </a>
-    <a class="wi" href="https://drive.google.com/file/d/1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg/preview" target="_blank" rel="noopener">
-      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg&sz=w600" alt="Ecochella"/></div>
-      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Event Campaign</span><div class="wname">Ecochella</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    <a class="vc" data-cat="brand" href="https://drive.google.com/file/d/1hTf0YQCxYgG4OUT3jr4d6J2ZDOI1xlTV/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1hTf0YQCxYgG4OUT3jr4d6J2ZDOI1xlTV&sz=w600" alt="Yvonne x Anemax"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Brand Film</div><div class="vc-name">Yvonne × Anemax</div></div>
     </a>
-    <a class="wi" href="https://drive.google.com/file/d/10rkrawLFow7xenI-kVzqFGNzbtzpJcpN/preview" target="_blank" rel="noopener">
-      <div class="wibg"><img src="https://drive.google.com/thumbnail?id=10rkrawLFow7xenI-kVzqFGNzbtzpJcpN&sz=w600" alt="Anemax"/></div>
-      <div class="wiov"><div class="wiov-inner"><div><span class="wcat">Brand Film</span><div class="wname">Anemax</div></div><div class="wplay"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(56,232,255,.9)"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+    <a class="vc" data-cat="brand" href="https://drive.google.com/file/d/1HEcDI6_qOYnuoVvCtfRrlHpcOzQivWNe/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1HEcDI6_qOYnuoVvCtfRrlHpcOzQivWNe&sz=w600" alt="Kidinn Visa"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Commercial</div><div class="vc-name">Kidinn Visa</div></div>
     </a>
+
+    <!-- EVENT FILMS -->
+    <a class="vc" data-cat="event" href="https://drive.google.com/file/d/1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1TcaYxECj4JAI4pcyw5sHMcJ71Xp5ABQE&sz=w600" alt="Outkast KL"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Event Film</div><div class="vc-name">Outkast KL 2025</div></div>
+    </a>
+    <a class="vc" data-cat="event" href="https://drive.google.com/file/d/1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1A8Z_d_aolB27m1mokw3fYYZXnhcJUUSg&sz=w600" alt="Ecochella"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Event Campaign</div><div class="vc-name">Ecochella</div></div>
+    </a>
+    <a class="vc" data-cat="event" href="https://drive.google.com/file/d/1xoKpp3_o-zWFHP-NuZ72RXLTUQZ-frrn/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1xoKpp3_o-zWFHP-NuZ72RXLTUQZ-frrn&sz=w600" alt="Tntco Vlog"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Brand Vlog</div><div class="vc-name">TNTCO Vlog</div></div>
+    </a>
+
+    <!-- REELS -->
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1t3aTkGsHatP15KK4UaeMgwZcO5IXiYDU/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1t3aTkGsHatP15KK4UaeMgwZcO5IXiYDU&sz=w400" alt="Reel 6"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">Reel 06</div></div>
+    </a>
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1cRj80GUzQ-aiGQX_8kHLzCiGeeg8Pw_N/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1cRj80GUzQ-aiGQX_8kHLzCiGeeg8Pw_N&sz=w400" alt="Reel 4"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">Reel 04</div></div>
+    </a>
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1dkForTUW6el8tQCCZV768G2VIwYRa5Am/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1dkForTUW6el8tQCCZV768G2VIwYRa5Am&sz=w400" alt="Reel 5"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">Reel 05</div></div>
+    </a>
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1BKfl7EH3F3hQ55ft5gN18rDd6YV3mEZb/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1BKfl7EH3F3hQ55ft5gN18rDd6YV3mEZb&sz=w400" alt="Reel 3"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">Reel 03</div></div>
+    </a>
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1XULmrqSAjcxRLUQBj1kNPcLOlkQq90WF/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1XULmrqSAjcxRLUQBj1kNPcLOlkQq90WF&sz=w400" alt="Stance Elements"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">Stance Elements</div></div>
+    </a>
+    <a class="vc" data-cat="reels" href="https://drive.google.com/file/d/1e39uZPuY_-jvppvjNJhXrnbRktca-xSg/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb reel"><img src="https://drive.google.com/thumbnail?id=1e39uZPuY_-jvppvjNJhXrnbRktca-xSg&sz=w400" alt="S1M Kaur"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Reel</div><div class="vc-name">S1M Kaur</div></div>
+    </a>
+
+    <!-- MUSIC VIDEOS -->
+    <a class="vc" data-cat="music" href="https://drive.google.com/file/d/1JGvGoONoZhIJcXDIO6WKoEGKXQGza-wX/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1JGvGoONoZhIJcXDIO6WKoEGKXQGza-wX&sz=w600" alt="HipHop Activity"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Music Video</div><div class="vc-name">HipHop Activity</div></div>
+    </a>
+    <a class="vc" data-cat="music" href="https://drive.google.com/file/d/1CeGpE3B4a1kWIIXPdHEII1WZ2v4eOlGW/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1CeGpE3B4a1kWIIXPdHEII1WZ2v4eOlGW&sz=w600" alt="itzsimon"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Music Video</div><div class="vc-name">@itzsimon</div></div>
+    </a>
+    <a class="vc" data-cat="music" href="https://drive.google.com/file/d/1TS1rVnXDmdpnmUPCxufnQYUwsQEpjsmw/preview" target="_blank" rel="noopener">
+      <div class="vc-thumb"><img src="https://drive.google.com/thumbnail?id=1TS1rVnXDmdpnmUPCxufnQYUwsQEpjsmw&sz=w600" alt="Music Video"/><div class="vc-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(56,232,255,.95)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="vc-info"><div class="vc-cat">Music Video</div><div class="vc-name">SaveClip Sessions</div></div>
+    </a>
+
+  </div>
+
+  <!-- Load More -->
+  <div class="vmore-wrap reveal">
+    <button class="vmore" id="vMoreBtn">Load More ↓</button>
   </div>
 </section>
 
-<!-- CLIENTS ──────────────────────────────────────────────────────
-  HOW TO ADD CLIENT LOGOS:
-  1. Put your client logo image file in the same folder as this HTML
-  2. Find a slot below and replace:
-       <div class="lph">Logo 1</div>
-     With:
-       <img src="YOUR-FILE.png" alt="Client Name"/>
-  Up to 12 logos supported.
-─────────────────────────────────────────────────────────────── -->
+<!-- CLIENTS -->
 <section id="clients">
   <div class="reveal">
     <div class="sl">Our Clients</div>
@@ -519,13 +596,11 @@ footer p{font-size:.83rem;color:var(--silver);}
     <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/HSBC_logo_%282018%29.svg" alt="HSBC"/></div>
     <div class="lslot"><img src="https://download.logo.wine/logo/U_Mobile/U_Mobile-Logo.wine.png" alt="U Mobile"/></div>
     <div class="lslot"><img src="https://www.begolfpro.com/wp-content/uploads/2020/12/original-logo.png" alt="BeGolfPro"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Grab_Logo.svg" alt="Grab"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/NIVEA_logo.svg" alt="Nivea"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/AirAsia_New_Logo.svg" alt="AirAsia"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Shopee.svg" alt="Shopee"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"/></div>
+    <div class="lslot"><img src="https://logo.clearbit.com/moonton.com" alt="Moonton"/></div>
+    <div class="lslot"><img src="https://logo.clearbit.com/kronenbourg1664.com" alt="1664"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/d/d8/JD_Sports_logo.svg" alt="JD Sports"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikinews/en/4/43/Lacoste_logo.svg" alt="Lacoste"/></div>
+    <div class="lslot"><img src="https://tntco.co/cdn/shop/files/website_logo_new_black_450x.png?v=1718472732" alt="TNTCO"/></div>
   </div>
 </section>
 
@@ -623,6 +698,34 @@ ct.addEventListener('click',()=>{open=!open;cp.classList.toggle('open',open);if(
 const reps=["Thanks for reaching out! 🙌 We'll get back to you as soon as possible.","That sounds like an exciting project! Fill the contact form and we'll be in touch.","We'd love to work with you — drop us an email at info@siastud.com 📧","Check out our packages section for more details, or just reach out!","Great question! Our team will reply within 24 hours. 🎨"];
 function snd(){const t=ci.value.trim();if(!t)return;const b=document.createElement('div');b.className='bb bout';b.textContent=t;cm.appendChild(b);ci.value='';cm.scrollTop=cm.scrollHeight;setTimeout(()=>{const r=document.createElement('div');r.className='bb bin';r.textContent=reps[Math.floor(Math.random()*reps.length)];cm.appendChild(r);cm.scrollTop=cm.scrollHeight;},950);}
 cs.addEventListener('click',snd);ci.addEventListener('keydown',e=>{if(e.key==='Enter')snd();});
+
+/* ── WORK TABS ── */
+(function(){
+  const tabs=document.querySelectorAll('.wtab');
+  const cards=[...document.querySelectorAll('.vc')];
+  const grid=document.getElementById('vGrid');
+  const moreBtn=document.getElementById('vMoreBtn');
+  let cat='brand',showing=3;
+  function pp(){return cat==='reels'?4:3;}
+  function render(){
+    const filtered=cards.filter(c=>c.dataset.cat===cat);
+    grid.style.gridTemplateColumns=cat==='reels'?'repeat(4,1fr)':'repeat(3,1fr)';
+    cards.forEach(c=>c.classList.add('hidden'));
+    filtered.slice(0,showing).forEach(c=>c.classList.remove('hidden'));
+    moreBtn.style.display=filtered.length>showing?'inline-block':'none';
+  }
+  tabs.forEach(t=>{
+    t.addEventListener('click',()=>{
+      tabs.forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      cat=t.dataset.cat;
+      showing=pp();
+      render();
+    });
+  });
+  moreBtn.addEventListener('click',()=>{showing+=pp();render();});
+  render();
+})();
 
 /* ── FORM ── */
 function handleSubmit(b){b.textContent='✓ Sent! We\'ll be in touch soon.';b.style.background='linear-gradient(135deg,#4ade80,#22d3ee)';setTimeout(()=>{b.textContent='Send Message →';b.style.background='';},3500);}
