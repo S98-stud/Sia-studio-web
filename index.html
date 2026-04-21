@@ -29,11 +29,7 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none;}
-
-/* CURSOR */
-.cur{width:10px;height:10px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:screen;box-shadow:0 0 10px var(--cyan);}
-.cur-ring{width:34px;height:34px;border:1.5px solid rgba(56,232,255,.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:width .28s,height .28s,border-color .28s;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:20px 56px;transition:background .4s,padding .35s;}
@@ -197,6 +193,13 @@ section{padding:110px 56px;position:relative;}
 .wb4{background:linear-gradient(135deg,#0c1020,#112035,#192840);}
 .wb5{background:linear-gradient(135deg,#07091a,#0d1830,#152335);}
 
+/* FEATURED VIDEO */
+.wvid-wrap{margin-bottom:20px;}
+.wvid-label{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.wvid-label::before{content:'';display:inline-block;width:18px;height:1.5px;background:var(--cyan);}
+.wvid{border-radius:18px;overflow:hidden;position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--border);}
+.wvid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
 /* CLIENTS */
 #clients{background:var(--bg2);}
 .ctitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-2px;margin-bottom:10px;}
@@ -287,9 +290,6 @@ footer p{font-size:.83rem;color:var(--silver);}
 </style>
 </head>
 <body>
-
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="curRing"></div>
 
 <!-- CHAT BUTTON -->
 <button class="chatbtn" id="chatToggle">
@@ -470,6 +470,12 @@ footer p{font-size:.83rem;color:var(--silver);}
     <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
     <a href="#contact" class="btn-outline">Start Your Project →</a>
   </div>
+  <div class="wvid-wrap reveal">
+    <div class="wvid-label">Featured — Video Production</div>
+    <div class="wvid">
+      <iframe src="https://drive.google.com/file/d/1t6jOyBN2GBPwtsiAH45BNGmaRve2Wrp7/preview" allow="autoplay" allowfullscreen></iframe>
+    </div>
+  </div>
   <div class="wgrid reveal">
     <div class="wi"><div class="wibg wb1"><span class="wico">🎨</span></div><div class="wiov"><div><span class="wcat">Brand Identity</span><div class="wname">Brand Refresh Campaign</div></div></div></div>
     <div class="wi"><div class="wibg wb2"><span class="wico">🎬</span></div><div class="wiov"><div><span class="wcat">Video Production</span><div class="wname">Product Launch Film</div></div></div></div>
@@ -590,16 +596,6 @@ footer p{font-size:.83rem;color:var(--silver);}
   document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
 })();
 
-/* ── CURSOR ── */
-const cur=document.getElementById('cur'),crng=document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
-(function a(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;crng.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.sc,.wi,.pc,.lslot').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{crng.style.width='56px';crng.style.height='56px';crng.style.borderColor='rgba(56,232,255,.9)';});
-  el.addEventListener('mouseleave',()=>{crng.style.width='34px';crng.style.height='34px';crng.style.borderColor='rgba(56,232,255,.6)';});
-});
-
 /* ── NAV ── */
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
 
@@ -620,3 +616,4 @@ function handleSubmit(b){b.textContent='✓ Sent! We\'ll be in touch soon.';b.st
 </script>
 </body>
 </html>
+
