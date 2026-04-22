@@ -969,7 +969,7 @@ const workTabs=(function(){
 })();
 
 /* ── CONFIG ── */
-const WH_URL='PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const WH_URL='https://script.google.com/macros/s/AKfycbxj0N2WVKabU4L5J5jNMgj5H0_HlBAbC8EK57L7FjMBdfyrcOH0XWG-ce4GqxwW3gpc/exec';
 function wh(payload){if(WH_URL.startsWith('PASTE'))return;fetch(WH_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});}
 
 /* ── VISITOR TRACKING ── */
