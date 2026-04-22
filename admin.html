@@ -135,7 +135,7 @@ tr:hover td{background:rgba(56,232,255,.03);}
 </div>
 
 <script>
-const WH_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const WH_URL = 'https://script.google.com/macros/s/AKfycbxj0N2WVKabU4L5J5jNMgj5H0_HlBAbC8EK57L7FjMBdfyrcOH0XWG-ce4GqxwW3gpc/exec';
 const PASS_HASH = '89579146a5eb0d53d7d89ce1dcedcd1f61ade17f8c819750619a91d9c3540439';
 const SESSION_KEY = 'sia_admin_auth';
 
@@ -224,7 +224,7 @@ function renderVisits(){
   document.getElementById('sTodayDate').textContent=new Date().toLocaleDateString('en-MY',{weekday:'short',day:'numeric',month:'short'});
 
   if(!cnt){
-    document.getElementById('visitTable').innerHTML='<div class="empty">No visitor data yet.<br><small>Deploy the Apps Script and replace PASTE_YOUR_APPS_SCRIPT_URL_HERE in both files.</small></div>';
+    document.getElementById('visitTable').innerHTML='<div class="empty">No visitor data yet. Check back after the first site visit.</div>';
     return;
   }
 
