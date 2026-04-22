@@ -193,10 +193,19 @@ function fmt(iso){
   }catch{return iso;}
 }
 
-function countryFlag(country){
-  if(!country) return '';
+function parseCountry(field){
+  if(!field) return {name:'',code:''};
+  if(field.includes('|')){const p=field.split('|');return{name:p[0],code:p[1]};}
+  return{name:field,code:''};
+}
+function countryFlag(field){
+  const {name,code}=parseCountry(field);
+  if(code&&code.length===2){
+    try{return String.fromCodePoint(0x1F1E6+code.toUpperCase().charCodeAt(0)-65)+String.fromCodePoint(0x1F1E6+code.toUpperCase().charCodeAt(1)-65);}catch(e){}
+  }
+  // legacy name fallback for old records
   const flags={'Malaysia':'🇲🇾','Singapore':'🇸🇬','Indonesia':'🇮🇩','Thailand':'🇹🇭','Philippines':'🇵🇭','Vietnam':'🇻🇳','United States':'🇺🇸','United Kingdom':'🇬🇧','Australia':'🇦🇺','China':'🇨🇳','Japan':'🇯🇵','South Korea':'🇰🇷','Hong Kong':'🇭🇰','Taiwan':'🇹🇼','India':'🇮🇳','Germany':'🇩🇪','France':'🇫🇷','Canada':'🇨🇦'};
-  return flags[country]||'🌐';
+  return flags[name]||'🌐';
 }
 
 function deviceBadge(dev){
@@ -233,8 +242,8 @@ function renderVisits(){
     return `<tr>
       <td style="white-space:nowrap;color:var(--silver)">${fmt(time)}</td>
       <td><code style="color:var(--cyan);font-size:.8rem">${ip||'—'}</code></td>
-      <td><span class="flag">${countryFlag(country)}</span>${country||'—'}</td>
-      <td>${city||'—'}${region?', '+region:''}</td>
+      <td><span class="flag">${countryFlag(country)}</span>${parseCountry(country).name||'—'}</td>
+      <td>${city||'—'}${region?', <span style="color:var(--silver)">'+region+'</span>':''}</td>
       <td>${deviceBadge(device)}</td>
       <td style="color:var(--silver);font-size:.75rem;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${org||'—'}</td>
       <td style="color:var(--silver);font-size:.75rem">${referrer||'direct'}</td>
@@ -258,11 +267,11 @@ function renderForms(){
   }
 
   const rows=[...formData].reverse().map(r=>{
-    const [time,name,email,enquiry,budget,message]=r;
+    const [time,name,email,phone,company,enquiry,budget,message]=r;
     return `<tr>
       <td style="white-space:nowrap;color:var(--silver)">${fmt(time)}</td>
-      <td><b>${name||'—'}</b></td>
-      <td><a href="mailto:${email}" style="color:var(--cyan);text-decoration:none">${email||'—'}</a></td>
+      <td><b>${name||'—'}</b>${company?'<br><span style="font-size:.72rem;color:var(--silver)">'+company+'</span>':''}</td>
+      <td><a href="mailto:${email}" style="color:var(--cyan);text-decoration:none">${email||'—'}</a>${phone?'<br><span style="font-size:.72rem;color:var(--silver)">'+phone+'</span>':''}</td>
       <td>${enquiry||'—'}</td>
       <td>${budget||'—'}</td>
       <td style="max-width:280px;font-size:.8rem;color:var(--silver)">${message||'—'}</td>
@@ -270,7 +279,7 @@ function renderForms(){
   }).join('');
 
   document.getElementById('formTable').innerHTML=`<table>
-    <thead><tr><th>Time</th><th>Name</th><th>Email</th><th>Enquiry</th><th>Budget</th><th>Message</th></tr></thead>
+    <thead><tr><th>Time</th><th>Name / Company</th><th>Email / Phone</th><th>Enquiry</th><th>Budget</th><th>Message</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>`;
 }
