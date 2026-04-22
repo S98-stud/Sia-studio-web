@@ -292,6 +292,10 @@ footer p{font-size:.83rem;color:var(--silver);}
 .vmodal-close{position:absolute;top:-46px;right:0;background:rgba(7,9,26,.8);border:1.5px solid var(--border);border-radius:50%;width:36px;height:36px;color:var(--silver);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;}
 .vmodal-close:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 14px rgba(56,232,255,.3);}
 .vmodal-title{position:absolute;top:-46px;left:0;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;color:var(--offwhite);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 50px);line-height:36px;}
+.vmodal-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;z-index:2;transition:opacity .3s;}
+.vmodal-loader.hide{opacity:0;pointer-events:none;}
+.vml-spin{width:36px;height:36px;border:3px solid rgba(56,232,255,.2);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 @media(max-width:600px){.vmodal{padding:12px;}.vmodal-box.reel{max-width:92vw;}.vmodal-close{top:-42px;}.vmodal-title{font-size:.75rem;}}
 
 /* ── VIEW BAR ── */
@@ -833,6 +837,10 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
         <div class="fg"><label>Your Name</label><input id="fname" type="text" placeholder="Full name"/></div>
         <div class="fg"><label>Email</label><input id="femail" type="email" placeholder="your@email.com"/></div>
       </div>
+      <div class="frow">
+        <div class="fg"><label>Phone Number</label><input id="fphone" type="tel" placeholder="+60 12-345 6789"/></div>
+        <div class="fg"><label>Company / Brand</label><input id="fcompany" type="text" placeholder="Your company or brand name"/></div>
+      </div>
       <div class="fg">
         <label>Enquiry Type</label>
         <select id="fenquiry">
@@ -885,8 +893,10 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
     <div class="vmodal-title" id="vModalTitle"></div>
     <button class="vmodal-close" id="vModalClose">✕</button>
     <div class="vmodal-frame" id="vModalFrame">
-      <iframe id="vModalIframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <div class="vmodal-loader" id="vModalLoader"><div class="vml-spin"></div></div>
+      <iframe id="vModalIframe" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"></iframe>
     </div>
+    <div style="text-align:right;margin-top:8px;"><a id="vModalExt" href="#" target="_blank" rel="noopener" style="font-size:.72rem;color:var(--silver);text-decoration:none;letter-spacing:.05em;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--silver)'">↗ Open in new tab</a></div>
   </div>
 </div>
 
@@ -977,7 +987,7 @@ function wh(payload){if(WH_URL.startsWith('PASTE'))return;fetch(WH_URL,{method:'
   if(sessionStorage.getItem('_vt'))return;
   sessionStorage.setItem('_vt','1');
   fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-    wh({type:'visit',time:new Date().toISOString(),ip:d.ip||'',country:d.country_name||'',city:d.city||'',region:d.region||'',org:d.org||'',device:(/Mobi|Android/i.test(navigator.userAgent)?'Mobile':'Desktop')+' — '+navigator.userAgent.split(')')[0].split('(')[1],referrer:document.referrer||'direct',page:location.href});
+    wh({type:'visit',time:new Date().toISOString(),ip:d.ip||'',country:(d.country_name||'')+(d.country_code?'|'+d.country_code:''),city:d.city||'',region:d.region||'',org:d.org||'',device:(/Mobi|Android/i.test(navigator.userAgent)?'Mobile':'Desktop')+' — '+navigator.userAgent.split(')')[0].split('(')[1],referrer:document.referrer||'direct',page:location.href});
   }).catch(()=>{});
 })();
 
@@ -985,18 +995,22 @@ function wh(payload){if(WH_URL.startsWith('PASTE'))return;fetch(WH_URL,{method:'
 function handleSubmit(b){
   const name=document.getElementById('fname')?.value?.trim()||'';
   const email=document.getElementById('femail')?.value?.trim()||'';
+  const phone=document.getElementById('fphone')?.value?.trim()||'';
+  const company=document.getElementById('fcompany')?.value?.trim()||'';
   const enquiry=document.getElementById('fenquiry')?.value||'';
   const budget=document.getElementById('fbudget')?.value||'';
   const message=document.getElementById('fmessage')?.value?.trim()||'';
   if(!name||!email){alert('Please fill in your name and email.');return;}
   b.textContent='Sending…';b.disabled=true;
-  wh({type:'form',time:new Date().toISOString(),name,email,enquiry,budget,message});
+  wh({type:'form',time:new Date().toISOString(),name,email,phone,company,enquiry,budget,message});
   setTimeout(()=>{
     b.textContent='✓ Sent! We\'ll be in touch soon.';
     b.style.background='linear-gradient(135deg,#4ade80,#22d3ee)';
     b.disabled=false;
     document.getElementById('fname').value='';
     document.getElementById('femail').value='';
+    document.getElementById('fphone').value='';
+    document.getElementById('fcompany').value='';
     document.getElementById('fmessage').value='';
     setTimeout(()=>{b.textContent='Send Message →';b.style.background='';},3500);
   },900);
@@ -1013,16 +1027,29 @@ function handleSubmit(b){
   const titleEl=document.getElementById('vModalTitle');
 
   function toEmbedUrl(url){
-    // YouTube watch → embed
     const yt=url.match(/youtube\.com\/watch\?v=([\w-]+)/);
     if(yt) return 'https://www.youtube.com/embed/'+yt[1]+'?autoplay=1&rel=0';
-    // Drive preview — already correct, ensure autoplay param
-    if(url.includes('drive.google.com/file')) return url.replace('/preview','/'+'preview')+'&autoplay=true';
+    if(url.includes('drive.google.com/file')){
+      const id=url.match(/\/d\/([^/]+)/);
+      return id?'https://drive.google.com/file/d/'+id[1]+'/preview':url;
+    }
     return url;
   }
+  function toRawUrl(url){
+    const yt=url.match(/youtube\.com\/watch\?v=([\w-]+)/);
+    if(yt) return 'https://www.youtube.com/watch?v='+yt[1];
+    return url.replace('/preview','/view');
+  }
+
+  const loader=document.getElementById('vModalLoader');
+  const extLink=document.getElementById('vModalExt');
 
   function openModal(url,isReel,title){
-    iframe.src=toEmbedUrl(url);
+    loader.classList.remove('hide');
+    iframe.src='';
+    setTimeout(()=>{iframe.src=toEmbedUrl(url);},30);
+    iframe.onload=()=>loader.classList.add('hide');
+    extLink.href=toRawUrl(url);
     titleEl.textContent=title||'';
     box.classList.toggle('reel',!!isReel);
     frame.classList.toggle('reel',!!isReel);
