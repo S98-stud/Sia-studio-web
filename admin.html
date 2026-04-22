@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SIA Stud. — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07091A;--bg2:#0C0F24;--bg3:#10142D;--bg4:#161B38;--cyan:#38E8FF;--white:#FFFFFF;--offwhite:#D6E8F5;--silver:#8BA0BC;--border:rgba(56,232,255,0.15);--grad:linear-gradient(135deg,#38E8FF,#4A7EFF);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;}
+
+/* GATE */
+#gate{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;}
+.gate-box{background:var(--bg2);border:1px solid var(--border);border-radius:24px;padding:48px 40px;width:100%;max-width:380px;text-align:center;}
+.gate-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;}
+.gate-sub{font-size:.78rem;color:var(--silver);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px;}
+.gate-box input{width:100%;background:rgba(56,232,255,.04);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;text-align:center;margin-bottom:14px;}
+.gate-box input:focus{border-color:var(--cyan);}
+.gate-box button{width:100%;padding:13px;border-radius:10px;border:none;background:var(--grad);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;transition:box-shadow .2s;}
+.gate-box button:hover{box-shadow:0 0 28px rgba(56,232,255,.5);}
+#gateErr{font-size:.8rem;color:#f87171;margin-top:10px;min-height:18px;}
+
+/* DASHBOARD */
+#dash{display:none;padding:30px 40px;max-width:1400px;margin:0 auto;}
+.dash-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.dash-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.dash-meta{font-size:.75rem;color:var(--silver);}
+.dash-actions{display:flex;gap:10px;align-items:center;}
+.dbtn{background:transparent;border:1.5px solid var(--border);border-radius:100px;padding:7px 18px;color:var(--silver);font-family:'Syne',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:all .2s;}
+.dbtn:hover,.dbtn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(56,232,255,.07);}
+.dbtn.danger{border-color:rgba(248,113,113,.3);color:#f87171;}
+.dbtn.danger:hover{border-color:#f87171;background:rgba(248,113,113,.07);}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px 22px;}
+.stat-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:8px;}
+.stat-val{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.stat-sub{font-size:.72rem;color:var(--silver);margin-top:4px;}
+
+/* TABS */
+.section-tabs{display:flex;gap:8px;margin-bottom:20px;}
+.stab{background:transparent;border:1.5px solid var(--border);border-radius:100px;padding:8px 22px;color:var(--silver);font-family:'Syne',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.stab.active{border-color:var(--cyan);color:var(--cyan);background:rgba(56,232,255,.07);}
+
+/* TABLE */
+.tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.tbl-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.tbl-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;}
+.tbl-count{font-size:.72rem;color:var(--silver);}
+table{width:100%;border-collapse:collapse;}
+th{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:rgba(56,232,255,.03);}
+td{font-size:.82rem;padding:10px 16px;border-bottom:1px solid rgba(56,232,255,.06);vertical-align:top;color:var(--offwhite);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(56,232,255,.03);}
+.flag{margin-right:5px;}
+.badge{display:inline-block;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid;}
+.badge.mob{border-color:rgba(56,232,255,.3);color:var(--cyan);}
+.badge.desk{border-color:rgba(74,126,255,.3);color:#4A7EFF;}
+.badge.new{border-color:rgba(74,222,128,.3);color:#4ade80;}
+.empty{text-align:center;padding:40px 20px;color:var(--silver);font-size:.88rem;}
+
+/* LOADING */
+.loading{text-align:center;padding:60px;color:var(--silver);}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  #dash{padding:20px 16px;}
+  .stats-row{grid-template-columns:1fr 1fr;gap:12px;}
+  .dash-nav{flex-direction:column;align-items:flex-start;gap:12px;}
+  table{font-size:.75rem;}
+  th,td{padding:8px 10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">SIA Stud.</div>
+    <div class="gate-sub">Admin Dashboard</div>
+    <input type="password" id="passInput" placeholder="Enter password" autocomplete="off"/>
+    <button onclick="checkPass()">Enter →</button>
+    <div id="gateErr"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash">
+  <div class="dash-nav">
+    <div>
+      <div class="dash-brand">SIA Stud. — Admin Dashboard</div>
+      <div class="dash-meta" id="dashMeta">Loading…</div>
+    </div>
+    <div class="dash-actions">
+      <button class="dbtn" onclick="loadAll()">↻ Refresh</button>
+      <button class="dbtn danger" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total Visits</div><div class="stat-val" id="sTotal">—</div><div class="stat-sub">all time</div></div>
+    <div class="stat-card"><div class="stat-label">Today</div><div class="stat-val" id="sToday">—</div><div class="stat-sub" id="sTodayDate">—</div></div>
+    <div class="stat-card"><div class="stat-label">This Week</div><div class="stat-val" id="sWeek">—</div><div class="stat-sub">last 7 days</div></div>
+    <div class="stat-card"><div class="stat-label">Enquiries</div><div class="stat-val" id="sForms">—</div><div class="stat-sub">form submissions</div></div>
+  </div>
+
+  <!-- Section tabs -->
+  <div class="section-tabs">
+    <button class="stab active" onclick="showSection('visits',this)">Visitor Log</button>
+    <button class="stab" onclick="showSection('forms',this)">Form Submissions</button>
+  </div>
+
+  <!-- Visitors table -->
+  <div id="secVisits" class="tbl-wrap">
+    <div class="tbl-head">
+      <span class="tbl-title">Visitor Log</span>
+      <span class="tbl-count" id="visitCount">—</span>
+    </div>
+    <div id="visitTable"><div class="loading"><div class="spinner"></div>Loading visitor data…</div></div>
+  </div>
+
+  <!-- Forms table -->
+  <div id="secForms" class="tbl-wrap" style="display:none;">
+    <div class="tbl-head">
+      <span class="tbl-title">Form Submissions</span>
+      <span class="tbl-count" id="formCount">—</span>
+    </div>
+    <div id="formTable"><div class="loading"><div class="spinner"></div>Loading submissions…</div></div>
+  </div>
+</div>
+
+<script>
+const WH_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const PASS_HASH = '89579146a5eb0d53d7d89ce1dcedcd1f61ade17f8c819750619a91d9c3540439';
+const SESSION_KEY = 'sia_admin_auth';
+
+/* ── PASSWORD ── */
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPass(){
+  const val=document.getElementById('passInput').value;
+  const hash=await sha256(val);
+  if(hash===PASS_HASH){
+    sessionStorage.setItem(SESSION_KEY,'1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('dash').style.display='block';
+    loadAll();
+  } else {
+    document.getElementById('gateErr').textContent='Incorrect password.';
+    document.getElementById('passInput').value='';
+  }
+}
+
+document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPass();});
+
+function logout(){
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+// Auto-login if session still active
+if(sessionStorage.getItem(SESSION_KEY)==='1'){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('dash').style.display='block';
+}
+
+/* ── DATA ── */
+let visitData=[], formData=[];
+
+async function fetchData(type){
+  if(WH_URL.startsWith('PASTE')) return [];
+  try{
+    const r=await fetch(WH_URL+'?type='+type+'&nocache='+Date.now());
+    const rows=await r.json();
+    return rows.slice(1); // skip header row
+  }catch(e){return [];}
+}
+
+function fmt(iso){
+  if(!iso) return '—';
+  try{
+    const d=new Date(iso);
+    return d.toLocaleDateString('en-MY',{day:'2-digit',month:'short',year:'numeric'})+' '+
+           d.toLocaleTimeString('en-MY',{hour:'2-digit',minute:'2-digit',hour12:true});
+  }catch{return iso;}
+}
+
+function countryFlag(country){
+  if(!country) return '';
+  const flags={'Malaysia':'🇲🇾','Singapore':'🇸🇬','Indonesia':'🇮🇩','Thailand':'🇹🇭','Philippines':'🇵🇭','Vietnam':'🇻🇳','United States':'🇺🇸','United Kingdom':'🇬🇧','Australia':'🇦🇺','China':'🇨🇳','Japan':'🇯🇵','South Korea':'🇰🇷','Hong Kong':'🇭🇰','Taiwan':'🇹🇼','India':'🇮🇳','Germany':'🇩🇪','France':'🇫🇷','Canada':'🇨🇦'};
+  return flags[country]||'🌐';
+}
+
+function deviceBadge(dev){
+  if(!dev) return '';
+  const isMob=/mobile/i.test(dev);
+  return `<span class="badge ${isMob?'mob':'desk'}">${isMob?'Mobile':'Desktop'}</span>`;
+}
+
+function isToday(iso){
+  const d=new Date(iso), n=new Date();
+  return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate();
+}
+
+function isThisWeek(iso){
+  const d=new Date(iso);
+  return (Date.now()-d.getTime())<7*24*60*60*1000;
+}
+
+function renderVisits(){
+  const cnt=visitData.length;
+  document.getElementById('visitCount').textContent=cnt+' records';
+  document.getElementById('sTotal').textContent=cnt;
+  document.getElementById('sToday').textContent=visitData.filter(r=>isToday(r[0])).length;
+  document.getElementById('sWeek').textContent=visitData.filter(r=>isThisWeek(r[0])).length;
+  document.getElementById('sTodayDate').textContent=new Date().toLocaleDateString('en-MY',{weekday:'short',day:'numeric',month:'short'});
+
+  if(!cnt){
+    document.getElementById('visitTable').innerHTML='<div class="empty">No visitor data yet.<br><small>Deploy the Apps Script and replace PASTE_YOUR_APPS_SCRIPT_URL_HERE in both files.</small></div>';
+    return;
+  }
+
+  const rows=[...visitData].reverse().map(r=>{
+    const [time,ip,country,city,region,org,device,referrer,page]=r;
+    return `<tr>
+      <td style="white-space:nowrap;color:var(--silver)">${fmt(time)}</td>
+      <td><code style="color:var(--cyan);font-size:.8rem">${ip||'—'}</code></td>
+      <td><span class="flag">${countryFlag(country)}</span>${country||'—'}</td>
+      <td>${city||'—'}${region?', '+region:''}</td>
+      <td>${deviceBadge(device)}</td>
+      <td style="color:var(--silver);font-size:.75rem;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${org||'—'}</td>
+      <td style="color:var(--silver);font-size:.75rem">${referrer||'direct'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('visitTable').innerHTML=`<table>
+    <thead><tr><th>Time</th><th>IP Address</th><th>Country</th><th>City</th><th>Device</th><th>ISP / Org</th><th>Referrer</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function renderForms(){
+  const cnt=formData.length;
+  document.getElementById('formCount').textContent=cnt+' submissions';
+  document.getElementById('sForms').textContent=cnt;
+
+  if(!cnt){
+    document.getElementById('formTable').innerHTML='<div class="empty">No form submissions yet.</div>';
+    return;
+  }
+
+  const rows=[...formData].reverse().map(r=>{
+    const [time,name,email,enquiry,budget,message]=r;
+    return `<tr>
+      <td style="white-space:nowrap;color:var(--silver)">${fmt(time)}</td>
+      <td><b>${name||'—'}</b></td>
+      <td><a href="mailto:${email}" style="color:var(--cyan);text-decoration:none">${email||'—'}</a></td>
+      <td>${enquiry||'—'}</td>
+      <td>${budget||'—'}</td>
+      <td style="max-width:280px;font-size:.8rem;color:var(--silver)">${message||'—'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('formTable').innerHTML=`<table>
+    <thead><tr><th>Time</th><th>Name</th><th>Email</th><th>Enquiry</th><th>Budget</th><th>Message</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+async function loadAll(){
+  document.getElementById('dashMeta').textContent='Refreshing…';
+  [visitData,formData]=await Promise.all([fetchData('visit'),fetchData('form')]);
+  renderVisits();
+  renderForms();
+  document.getElementById('dashMeta').textContent='Last updated: '+new Date().toLocaleTimeString('en-MY',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+}
+
+function showSection(name,btn){
+  document.getElementById('secVisits').style.display=name==='visits'?'block':'none';
+  document.getElementById('secForms').style.display=name==='forms'?'block':'none';
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Auto-load if already authed
+if(sessionStorage.getItem(SESSION_KEY)==='1') loadAll();
+
+// Auto-refresh every 2 minutes
+setInterval(()=>{if(sessionStorage.getItem(SESSION_KEY)==='1')loadAll();},120000);
+</script>
+</body>
+</html>
