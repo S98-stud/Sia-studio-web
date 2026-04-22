@@ -297,6 +297,11 @@ footer p{font-size:.83rem;color:var(--silver);}
 .vml-spin{width:36px;height:36px;border:3px solid rgba(56,232,255,.2);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 @media(max-width:600px){.vmodal{padding:12px;}.vmodal-box.reel{max-width:92vw;}.vmodal-close{top:-42px;}.vmodal-title{font-size:.75rem;}}
+body.mobile-view .vmodal{padding:8px;padding-top:48px;align-items:flex-start;}
+body.mobile-view .vmodal-box{width:100%;max-width:100%;}
+body.mobile-view .vmodal-frame{aspect-ratio:16/9;width:100%;max-height:calc(100vw * 9/16);}
+body.mobile-view .vmodal-frame.reel{aspect-ratio:9/16;max-height:80vh;}
+body.mobile-view .vmodal-box.reel{max-width:60vw;margin:0 auto;}
 
 /* ── VIEW BAR ── */
 .view-bar{position:fixed;top:0;left:0;right:0;z-index:600;background:rgba(7,9,26,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px;height:36px;}
