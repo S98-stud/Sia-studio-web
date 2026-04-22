@@ -175,13 +175,25 @@ if(sessionStorage.getItem(SESSION_KEY)==='1'){
 /* ── DATA ── */
 let visitData=[], formData=[];
 
-async function fetchData(type){
-  if(WH_URL.startsWith('PASTE')) return [];
-  try{
-    const r=await fetch(WH_URL+'?type='+type+'&nocache='+Date.now());
-    const rows=await r.json();
-    return rows.slice(1); // skip header row
-  }catch(e){return [];}
+function fetchData(type){
+  return new Promise(function(resolve){
+    if(WH_URL.startsWith('PASTE')){resolve([]);return;}
+    var cbName='_siacb'+Date.now();
+    window[cbName]=function(rows){
+      try{document.getElementById(cbName).remove();}catch(e){}
+      delete window[cbName];
+      resolve(Array.isArray(rows)&&rows.length>1?rows.slice(1):[]);
+    };
+    var s=document.createElement('script');
+    s.id=cbName;
+    s.onerror=function(){
+      try{document.getElementById(cbName).remove();}catch(e){}
+      delete window[cbName];
+      resolve([]);
+    };
+    s.src=WH_URL+'?type='+type+'&cb='+cbName+'&t='+Date.now();
+    document.head.appendChild(s);
+  });
 }
 
 function fmt(iso){
