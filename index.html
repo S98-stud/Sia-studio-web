@@ -830,12 +830,12 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
     <div class="cform reveal">
       <h3>Send a Message</h3>
       <div class="frow">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"/></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+        <div class="fg"><label>Your Name</label><input id="fname" type="text" placeholder="Full name"/></div>
+        <div class="fg"><label>Email</label><input id="femail" type="email" placeholder="your@email.com"/></div>
       </div>
       <div class="fg">
         <label>Enquiry Type</label>
-        <select>
+        <select id="fenquiry">
           <option value="">Select enquiry type...</option>
           <option>Idea Development & Concept</option>
           <option>Brand & Visual Identity</option>
@@ -843,15 +843,15 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
           <option>Photo Editing</option>
           <option>Graphic Design</option>
           <option>Social Media Content</option>
-          <option>Starter Package</option>
-          <option>Pro Studio Package</option>
+          <option>Creative Consultation Package</option>
+          <option>Video Production Package</option>
           <option>Full Campaign Package</option>
           <option>General Enquiry</option>
         </select>
       </div>
       <div class="fg">
         <label>Budget Range</label>
-        <select>
+        <select id="fbudget">
           <option value="">Select budget range...</option>
           <option>Under RM 1,000</option>
           <option>RM 1,000 – RM 3,000</option>
@@ -860,7 +860,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
           <option>Let's discuss</option>
         </select>
       </div>
-      <div class="fg"><label>Tell Us About Your Project</label><textarea rows="3" placeholder="Share your idea, timeline, or any details..."></textarea></div>
+      <div class="fg"><label>Tell Us About Your Project</label><textarea id="fmessage" rows="3" placeholder="Share your idea, timeline, or any details..."></textarea></div>
       <button class="fbtn" onclick="handleSubmit(this)">Send Message →</button>
     </div>
   </div>
@@ -968,8 +968,39 @@ const workTabs=(function(){
   vbtnM.addEventListener('click',()=>setView(true));
 })();
 
+/* ── CONFIG ── */
+const WH_URL='PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+function wh(payload){if(WH_URL.startsWith('PASTE'))return;fetch(WH_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});}
+
+/* ── VISITOR TRACKING ── */
+(function(){
+  if(sessionStorage.getItem('_vt'))return;
+  sessionStorage.setItem('_vt','1');
+  fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
+    wh({type:'visit',time:new Date().toISOString(),ip:d.ip||'',country:d.country_name||'',city:d.city||'',region:d.region||'',org:d.org||'',device:(/Mobi|Android/i.test(navigator.userAgent)?'Mobile':'Desktop')+' — '+navigator.userAgent.split(')')[0].split('(')[1],referrer:document.referrer||'direct',page:location.href});
+  }).catch(()=>{});
+})();
+
 /* ── FORM ── */
-function handleSubmit(b){b.textContent='✓ Sent! We\'ll be in touch soon.';b.style.background='linear-gradient(135deg,#4ade80,#22d3ee)';setTimeout(()=>{b.textContent='Send Message →';b.style.background='';},3500);}
+function handleSubmit(b){
+  const name=document.getElementById('fname')?.value?.trim()||'';
+  const email=document.getElementById('femail')?.value?.trim()||'';
+  const enquiry=document.getElementById('fenquiry')?.value||'';
+  const budget=document.getElementById('fbudget')?.value||'';
+  const message=document.getElementById('fmessage')?.value?.trim()||'';
+  if(!name||!email){alert('Please fill in your name and email.');return;}
+  b.textContent='Sending…';b.disabled=true;
+  wh({type:'form',time:new Date().toISOString(),name,email,enquiry,budget,message});
+  setTimeout(()=>{
+    b.textContent='✓ Sent! We\'ll be in touch soon.';
+    b.style.background='linear-gradient(135deg,#4ade80,#22d3ee)';
+    b.disabled=false;
+    document.getElementById('fname').value='';
+    document.getElementById('femail').value='';
+    document.getElementById('fmessage').value='';
+    setTimeout(()=>{b.textContent='Send Message →';b.style.background='';},3500);
+  },900);
+}
 
 /* ── VIDEO MODAL ── */
 (function(){
