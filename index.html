@@ -382,24 +382,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   <button class="vbtn" id="vbtnMobile">📱 Mobile</button>
 </div>
 
-<!-- CHAT BUTTON -->
-<button class="chatbtn" id="chatToggle">
-  <div class="cpulse"></div>
-  <svg viewBox="0 0 24 24" fill="none" stroke="#07091A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-</button>
-
-<!-- CHAT POPUP -->
-<div class="chatpop" id="chatPop">
-  <div class="chd">
-    <div class="cav"><img src="logo.png" alt="SIA"/></div>
-    <div><div class="chn">SIA Stud.</div><div class="chs">Online · replies in minutes</div></div>
-  </div>
-  <div class="cmsgs" id="chatMsgs"><div class="bb bin">Hey! 👋 Welcome to SIA Stud. How can we help bring your vision to life?</div></div>
-  <div class="cir">
-    <input class="cinp" id="chatInp" placeholder="Type a message..."/>
-    <button class="csd" id="chatSd"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#07091A" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-  </div>
-</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -953,13 +935,6 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
 
-/* ── CHAT ── */
-const ct=document.getElementById('chatToggle'),cp=document.getElementById('chatPop'),cm=document.getElementById('chatMsgs'),ci=document.getElementById('chatInp'),cs=document.getElementById('chatSd');
-let open=false;
-ct.addEventListener('click',()=>{open=!open;cp.classList.toggle('open',open);if(open)ci.focus();});
-const reps=["Thanks for reaching out! 🙌 We'll get back to you as soon as possible.","That sounds like an exciting project! Fill the contact form and we'll be in touch.","We'd love to work with you — drop us an email at info@siastud.com 📧","Check out our packages section for more details, or just reach out!","Great question! Our team will reply within 24 hours. 🎨"];
-function snd(){const t=ci.value.trim();if(!t)return;const b=document.createElement('div');b.className='bb bout';b.textContent=t;cm.appendChild(b);ci.value='';cm.scrollTop=cm.scrollHeight;setTimeout(()=>{const r=document.createElement('div');r.className='bb bin';r.textContent=reps[Math.floor(Math.random()*reps.length)];cm.appendChild(r);cm.scrollTop=cm.scrollHeight;},950);}
-cs.addEventListener('click',snd);ci.addEventListener('keydown',e=>{if(e.key==='Enter')snd();});
 
 /* ── WORK TABS ── */
 const workTabs=(function(){
