@@ -278,6 +278,45 @@ footer p{font-size:.83rem;color:var(--silver);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(115%)}to{opacity:1;transform:translateY(0)}}
 
+/* ── VIEW BAR ── */
+.view-bar{position:fixed;top:0;left:0;right:0;z-index:600;background:rgba(7,9,26,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px;height:36px;}
+.view-bar-label{font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);margin-right:4px;}
+.vbtn{background:transparent;border:1.5px solid var(--border);border-radius:100px;padding:4px 18px;color:var(--silver);font-family:'Syne',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.08em;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.vbtn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(56,232,255,.07);box-shadow:0 0 10px rgba(56,232,255,.15);}
+.vbtn:not(.active):hover{border-color:rgba(56,232,255,.35);color:var(--offwhite);}
+nav{top:36px!important;}
+
+/* ── MOBILE VIEW ── */
+body.mobile-view nav{padding:12px 20px;}
+body.mobile-view nav.scrolled{padding:10px 20px;}
+body.mobile-view .nav-links{display:none!important;}
+body.mobile-view #hero{padding:108px 20px 64px;}
+body.mobile-view section{padding:70px 20px;}
+body.mobile-view .hero-title{font-size:clamp(2.6rem,9vw,3.8rem);letter-spacing:-2px;}
+body.mobile-view .hero-sub{font-size:.92rem;}
+body.mobile-view .hero-btns{flex-direction:column;gap:10px;align-items:flex-start;}
+body.mobile-view #about{grid-template-columns:1fr;gap:30px;}
+body.mobile-view .sgrid{grid-template-columns:1fr;}
+body.mobile-view .pgrid{grid-template-columns:1fr;}
+body.mobile-view .prsteps{grid-template-columns:1fr 1fr;}
+body.mobile-view .shd,body.mobile-view .whd{flex-direction:column;align-items:flex-start;gap:12px;}
+body.mobile-view .feat-grid{display:block!important;}
+body.mobile-view .feat-grid>div{margin-bottom:16px;}
+body.mobile-view .wvid{max-width:100%!important;}
+body.mobile-view .vgrid{gap:10px;}
+body.mobile-view .wtabs{gap:6px;}
+body.mobile-view .wtab{padding:9px 14px;font-size:.72rem;}
+body.mobile-view .vc{border-radius:12px;}
+body.mobile-view .vc-name{font-size:.88rem;}
+body.mobile-view .vc-info{padding:12px 14px 14px;}
+body.mobile-view .vc-play svg{width:28px;height:28px;}
+body.mobile-view .lgrid{grid-template-columns:repeat(3,1fr);}
+body.mobile-view .cwrap{grid-template-columns:1fr;gap:30px;}
+body.mobile-view .frow{grid-template-columns:1fr;}
+body.mobile-view footer{flex-direction:column;gap:12px;text-align:center;}
+body.mobile-view .hero-si{display:none;}
+body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
+
 @media(max-width:900px){
   nav{padding:18px 24px;}nav.scrolled{padding:12px 24px;}
   .nav-links{display:none;}
@@ -299,6 +338,13 @@ footer p{font-size:.83rem;color:var(--silver);}
 </style>
 </head>
 <body>
+
+<!-- VIEW SWITCHER -->
+<div class="view-bar">
+  <span class="view-bar-label">View</span>
+  <button class="vbtn active" id="vbtnDesktop">🖥 Desktop</button>
+  <button class="vbtn" id="vbtnMobile">📱 Mobile</button>
+</div>
 
 <!-- CHAT BUTTON -->
 <button class="chatbtn" id="chatToggle">
@@ -483,7 +529,7 @@ footer p{font-size:.83rem;color:var(--silver);}
   <!-- Featured Videos -->
   <div class="wvid-wrap reveal">
     <div class="wvid-label">Featured Films</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="feat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div>
         <div style="font-size:.7rem;color:var(--silver);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">3AM Full Version</div>
         <div class="wvid"><iframe src="https://drive.google.com/file/d/14g-stGF-jVxrbeDsV8B-wSEalbTJsEPF/preview" allow="autoplay" allowfullscreen></iframe></div>
@@ -848,16 +894,20 @@ function snd(){const t=ci.value.trim();if(!t)return;const b=document.createEleme
 cs.addEventListener('click',snd);ci.addEventListener('keydown',e=>{if(e.key==='Enter')snd();});
 
 /* ── WORK TABS ── */
-(function(){
+const workTabs=(function(){
   const tabs=document.querySelectorAll('.wtab');
   const cards=[...document.querySelectorAll('.vc')];
   const grid=document.getElementById('vGrid');
   const moreBtn=document.getElementById('vMoreBtn');
-  let cat='brand',showing=3;
-  function pp(){return cat==='reels'?4:3;}
+  let cat='brand',showing=3,mob=false;
+  function pp(){return cat==='reels'?(mob?2:4):(mob?2:3);}
   function render(){
     const filtered=cards.filter(c=>c.dataset.cat===cat);
-    grid.style.gridTemplateColumns=cat==='reels'?'repeat(4,1fr)':'repeat(3,1fr)';
+    if(mob){
+      grid.style.gridTemplateColumns=cat==='reels'?'repeat(2,1fr)':'1fr';
+    } else {
+      grid.style.gridTemplateColumns=cat==='reels'?'repeat(4,1fr)':'repeat(3,1fr)';
+    }
     cards.forEach(c=>c.classList.add('hidden'));
     filtered.slice(0,showing).forEach(c=>c.classList.remove('hidden'));
     moreBtn.style.display=filtered.length>showing?'inline-block':'none';
@@ -873,6 +923,21 @@ cs.addEventListener('click',snd);ci.addEventListener('keydown',e=>{if(e.key==='E
   });
   moreBtn.addEventListener('click',()=>{showing+=pp();render();});
   render();
+  return{setMobile:function(m){mob=m;showing=pp();render();}};
+})();
+
+/* ── VIEW TOGGLE ── */
+(function(){
+  const vbtnD=document.getElementById('vbtnDesktop');
+  const vbtnM=document.getElementById('vbtnMobile');
+  function setView(mobile){
+    document.body.classList.toggle('mobile-view',mobile);
+    vbtnD.classList.toggle('active',!mobile);
+    vbtnM.classList.toggle('active',mobile);
+    workTabs.setMobile(mobile);
+  }
+  vbtnD.addEventListener('click',()=>setView(false));
+  vbtnM.addEventListener('click',()=>setView(true));
 })();
 
 /* ── FORM ── */
