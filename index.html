@@ -297,11 +297,13 @@ footer p{font-size:.83rem;color:var(--silver);}
 .vml-spin{width:36px;height:36px;border:3px solid rgba(56,232,255,.2);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 @media(max-width:600px){.vmodal{padding:12px;}.vmodal-box.reel{max-width:92vw;}.vmodal-close{top:-42px;}.vmodal-title{font-size:.75rem;}}
-body.mobile-view .vmodal{padding:8px;padding-top:48px;align-items:flex-start;}
-body.mobile-view .vmodal-box{width:100%;max-width:100%;}
-body.mobile-view .vmodal-frame{aspect-ratio:16/9;width:100%;max-height:calc(100vw * 9/16);}
-body.mobile-view .vmodal-frame.reel{aspect-ratio:9/16;max-height:80vh;}
-body.mobile-view .vmodal-box.reel{max-width:60vw;margin:0 auto;}
+body.mobile-view .vmodal{padding:0;align-items:center;justify-content:center;}
+body.mobile-view .vmodal-box{width:calc(100vw - 16px);max-width:calc(100vw - 16px);margin:0 auto;}
+body.mobile-view .vmodal-title{font-size:.7rem;top:-36px;}
+body.mobile-view .vmodal-close{top:-36px;width:30px;height:30px;font-size:.75rem;}
+body.mobile-view .vmodal-frame{width:100%;aspect-ratio:16/9;max-height:none;border-radius:10px;}
+body.mobile-view .vmodal-frame.reel{aspect-ratio:9/16;max-height:75vh;}
+body.mobile-view .vmodal-box.reel{width:55vw;max-width:55vw;}
 
 /* ── VIEW BAR ── */
 .view-bar{position:fixed;top:0;left:0;right:0;z-index:600;background:rgba(7,9,26,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px;height:36px;}
@@ -465,87 +467,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
     <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">📱</span><span class="snum">05</span><div class="sname">Social Media Content</div><p class="stxt">Consistent, on-brand content calendars with high-quality visuals built to grow your audience and engagement.</p><a href="#contact" class="sarr">Get Started →</a></div>
     <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🚀</span><span class="snum">06</span><div class="sname">Full Campaign Package</div><p class="stxt">Strategy + brand + production + distribution — complete end-to-end for brands ready to make a real statement.</p><a href="#packages" class="sarr">See Packages →</a></div>
   </div>
-</section>
-
-<!-- PACKAGES -->
-<section id="packages">
-  <div class="reveal">
-    <div class="sl">Packages</div>
-    <h2 class="ptitle">Pick your package.</h2>
-    <p class="psub">Every package includes our full attention and craft. Get in touch and we'll find the right fit for your budget and goals.</p>
-  </div>
-  <div class="pgrid">
-    <!-- STARTER -->
-    <div class="pc reveal">
-      <div class="pname">Creative Consultation</div>
-      <div class="pprice">RM xxx</div>
-      <div class="pper">strategy & concept session</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Creative Brief & Discovery Session</li>
-        <li>Concept Development</li>
-        <li>Mood Board & Visual Direction</li>
-        <li>Pre-Production Planning</li>
-        <li>Script / Storyboard Outline</li>
-        <li class="dm">Top Up: Logo Design</li>
-        <li class="dm">Top Up: Typography System</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-o">Enquire Now</a>
-    </div>
-    <!-- PRO -->
-    <div class="pc feat reveal">
-      <div class="pbadge">Most Popular</div>
-      <div class="pname">Video Production</div>
-      <div class="pprice">RM x,xxx</div>
-      <div class="pper">complete video package</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Full Pre-Production Planning</li>
-        <li>1-Day Shoot (Camera + Crew)</li>
-        <li>Professional Editing & Color Grade</li>
-        <li>Music Licensing</li>
-        <li>1× Finished Video (up to 3 min)</li>
-        <li>Short-form Cut (Reel / TikTok)</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-f">Enquire Now</a>
-    </div>
-    <!-- CAMPAIGN -->
-    <div class="pc reveal">
-      <div class="pname">Full Campaign</div>
-      <div class="pprice">RM x,xxx+</div>
-      <div class="pper">end-to-end creative</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Everything in Video Production</li>
-        <li>Multi-Video Campaign</li>
-        <li>Creative Strategy & Direction</li>
-        <li>Campaign Photography</li>
-        <li>Content Calendar (1 month)</li>
-        <li>Dedicated Account Manager</li>
-        <li>Logo & Typography (Included)</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-o">Let's Talk</a>
-    </div>
-  </div>
-  <!-- Mobile-only 2-box packages -->
-  <div class="mob-pkg">
-    <div class="mpk">
-      <div class="mpk-name">Creative & Consultation</div>
-      <div class="mpk-price">RM xxx</div>
-      <div class="mpk-sub">Strategy & concept</div>
-      <div class="mpk-desc">Brief, concept development, mood board, visual direction & pre-production planning. Logo design available as top-up.</div>
-      <a href="#contact" class="o">Enquire Now</a>
-    </div>
-    <div class="mpk feat">
-      <div class="mpk-name">Video Production & Campaign</div>
-      <div class="mpk-price">RM x,xxx+</div>
-      <div class="mpk-sub">Full production to end-to-end</div>
-      <div class="mpk-desc">Complete shoot, editing & colour grade to full multi-video campaigns with creative direction, photography & branding included.</div>
-      <a href="#contact">Enquire Now</a>
-    </div>
-  </div>
-
-  <p style="text-align:center;margin-top:28px;font-size:.82rem;color:var(--silver);">✦ Logo design &amp; typography system available as a Top Up for the Creative Consultation package — <a href="#contact" style="color:var(--cyan);text-decoration:none;">enquire for pricing</a></p>
 </section>
 
 <!-- PROCESS -->
@@ -833,6 +754,82 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
     <div class="lslot"><img src="https://upload.wikimedia.org/wikinews/en/4/43/Lacoste_logo.svg" alt="Lacoste"/></div>
     <div class="lslot"><img src="https://tntco.co/cdn/shop/files/website_logo_new_black_450x.png?v=1718472732" alt="TNTCO"/></div>
   </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="reveal">
+    <div class="sl">Packages</div>
+    <h2 class="ptitle">Pick your package.</h2>
+    <p class="psub">Every package includes our full attention and craft. Get in touch and we'll find the right fit for your budget and goals.</p>
+  </div>
+  <div class="pgrid">
+    <div class="pc reveal">
+      <div class="pname">Creative Consultation</div>
+      <div class="pprice">RM xxx</div>
+      <div class="pper">strategy & concept session</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Creative Brief & Discovery Session</li>
+        <li>Concept Development</li>
+        <li>Mood Board & Visual Direction</li>
+        <li>Pre-Production Planning</li>
+        <li>Script / Storyboard Outline</li>
+        <li class="dm">Top Up: Logo Design</li>
+        <li class="dm">Top Up: Typography System</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-o">Enquire Now</a>
+    </div>
+    <div class="pc feat reveal">
+      <div class="pbadge">Most Popular</div>
+      <div class="pname">Video Production</div>
+      <div class="pprice">RM x,xxx</div>
+      <div class="pper">complete video package</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Full Pre-Production Planning</li>
+        <li>1-Day Shoot (Camera + Crew)</li>
+        <li>Professional Editing & Color Grade</li>
+        <li>Music Licensing</li>
+        <li>1× Finished Video (up to 3 min)</li>
+        <li>Short-form Cut (Reel / TikTok)</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-f">Enquire Now</a>
+    </div>
+    <div class="pc reveal">
+      <div class="pname">Full Campaign</div>
+      <div class="pprice">RM x,xxx+</div>
+      <div class="pper">end-to-end creative</div>
+      <div class="pdiv"></div>
+      <ul class="plist">
+        <li>Everything in Video Production</li>
+        <li>Multi-Video Campaign</li>
+        <li>Creative Strategy & Direction</li>
+        <li>Campaign Photography</li>
+        <li>Content Calendar (1 month)</li>
+        <li>Dedicated Account Manager</li>
+        <li>Logo & Typography (Included)</li>
+      </ul>
+      <a href="#contact" class="pcta pcta-o">Let's Talk</a>
+    </div>
+  </div>
+  <div class="mob-pkg">
+    <div class="mpk">
+      <div class="mpk-name">Creative & Consultation</div>
+      <div class="mpk-price">RM xxx</div>
+      <div class="mpk-sub">Strategy & concept</div>
+      <div class="mpk-desc">Brief, concept development, mood board, visual direction & pre-production planning. Logo design available as top-up.</div>
+      <a href="#contact" class="o">Enquire Now</a>
+    </div>
+    <div class="mpk feat">
+      <div class="mpk-name">Video Production & Campaign</div>
+      <div class="mpk-price">RM x,xxx+</div>
+      <div class="mpk-sub">Full production to end-to-end</div>
+      <div class="mpk-desc">Complete shoot, editing & colour grade to full multi-video campaigns with creative direction, photography & branding included.</div>
+      <a href="#contact">Enquire Now</a>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:28px;font-size:.82rem;color:var(--silver);">✦ Logo design &amp; typography system available as a Top Up for the Creative Consultation package — <a href="#contact" style="color:var(--cyan);text-decoration:none;">enquire for pricing</a></p>
 </section>
 
 <!-- CONTACT -->
