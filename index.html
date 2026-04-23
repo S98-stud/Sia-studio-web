@@ -132,31 +132,6 @@ section{padding:110px 56px;position:relative;}
 .sarr{display:inline-flex;align-items:center;gap:7px;margin-top:22px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;text-decoration:none;}
 .sc:hover .sarr{opacity:1;transform:translateX(0);}
 
-/* PACKAGES */
-#packages{background:var(--bg);}
-.ptitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,3.8vw,3.4rem);letter-spacing:-2px;margin-bottom:10px;line-height:1.04;}
-.psub{font-size:1rem;color:var(--silver);margin-bottom:52px;max-width:500px;line-height:1.75;}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.pc{background:var(--bg2);border:1px solid var(--border);border-radius:26px;padding:42px 34px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
-.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .3s;}
-.pc:hover{border-color:rgba(56,232,255,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(56,232,255,.12);}
-.pc:hover::before{opacity:1;}
-.pc.feat{border-color:rgba(56,232,255,.45);background:linear-gradient(145deg,var(--bg2),rgba(56,232,255,.05));box-shadow:0 0 50px rgba(56,232,255,.1);}
-.pc.feat::before{opacity:1;}
-.pbadge{position:absolute;top:20px;right:20px;background:var(--grad);color:var(--bg);font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:100px;box-shadow:0 0 16px rgba(56,232,255,.4);}
-.pname{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:8px;color:var(--white);}
-.pprice{font-family:'Syne',sans-serif;font-weight:800;font-size:2.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px;margin-bottom:6px;line-height:1.1;}
-.pper{font-size:.82rem;color:var(--silver);}
-.pdiv{width:100%;height:1px;background:var(--border);margin:24px 0;}
-.plist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
-.plist li{display:flex;align-items:flex-start;gap:10px;font-size:.89rem;color:var(--offwhite);line-height:1.55;}
-.plist li::before{content:'✦';color:var(--cyan);font-size:.58rem;margin-top:5px;flex-shrink:0;text-shadow:0 0 8px var(--cyan);}
-.plist li.dm{color:var(--silver);}.plist li.dm::before{color:var(--silver);text-shadow:none;}
-.pcta{width:100%;padding:14px;border-radius:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .25s;text-decoration:none;text-align:center;display:block;}
-.pcta-o{background:transparent;border:1.5px solid var(--border);color:var(--offwhite);}
-.pcta-o:hover{border-color:var(--cyan);background:var(--gf);color:var(--cyan);box-shadow:0 0 20px rgba(56,232,255,.15);}
-.pcta-f{background:var(--grad);border:none;color:var(--bg);box-shadow:0 0 28px rgba(56,232,255,.35);}
-.pcta-f:hover{box-shadow:0 0 50px rgba(56,232,255,.6);transform:translateY(-2px);}
 
 /* PROCESS */
 #process{background:var(--bg2);}
@@ -324,7 +299,6 @@ body.mobile-view .hero-sub{font-size:.92rem;}
 body.mobile-view .hero-btns{flex-direction:column;gap:10px;align-items:flex-start;}
 body.mobile-view #about{grid-template-columns:1fr;gap:30px;}
 body.mobile-view .sgrid{grid-template-columns:1fr;}
-body.mobile-view .pgrid{grid-template-columns:1fr;}
 body.mobile-view .prsteps{grid-template-columns:1fr 1fr;}
 body.mobile-view .shd,body.mobile-view .whd{flex-direction:column;align-items:flex-start;gap:12px;}
 body.mobile-view .feat-grid{display:block!important;}
@@ -332,20 +306,6 @@ body.mobile-view .feat-grid>div{margin-bottom:16px;width:100%;box-sizing:border-
 body.mobile-view .feat-grid .wvid{width:100%!important;max-width:100%!important;aspect-ratio:16/9;}
 body.mobile-view .wvid{width:100%!important;max-width:100%!important;box-sizing:border-box;}
 body.mobile-view .wvid-wrap{width:100%;overflow:hidden;}
-body.mobile-view .pgrid{display:none!important;}
-body.mobile-view .mob-pkg{display:flex!important;}
-body.mobile-view .ptitle-note{display:none;}
-.mob-pkg{display:none;flex-direction:column;gap:14px;margin-top:24px;}
-.mpk{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:24px 22px;}
-.mpk.feat{border-color:rgba(56,232,255,.45);background:linear-gradient(145deg,var(--bg2),rgba(56,232,255,.05));}
-.mpk-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:4px;}
-.mpk-price{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:4px;}
-.mpk-sub{font-size:.72rem;color:var(--silver);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
-.mpk-desc{font-size:.82rem;color:var(--offwhite);line-height:1.6;margin-bottom:16px;}
-.mpk a{display:inline-block;padding:10px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;text-decoration:none;transition:all .2s;}
-.mpk.feat a{background:var(--grad);color:var(--bg);}
-.mpk a.o{border:1.5px solid rgba(56,232,255,.45);color:var(--cyan);}
-.mpk a.o:hover{background:rgba(56,232,255,.1);}
 body.mobile-view .vgrid{gap:10px;}
 body.mobile-view .wtabs{gap:6px;}
 body.mobile-view .wtab{padding:9px 14px;font-size:.72rem;}
@@ -367,7 +327,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   #hero{padding:100px 24px 80px;}
   #about{grid-template-columns:1fr;gap:40px;}
   .sgrid{grid-template-columns:1fr;}
-  .pgrid{grid-template-columns:1fr;}
   .prsteps{grid-template-columns:1fr 1fr;}
   .wgrid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
   .wi{grid-column:auto!important;grid-row:auto!important;height:185px;}
@@ -396,7 +355,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#packages">Packages</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#clients">Clients</a></li>
     <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
@@ -465,7 +423,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
     <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🎬</span><span class="snum">03</span><div class="sname">Video & Photo Production</div><p class="stxt">From pre-production to post-edit polish — we craft visuals that move people: ads, reels, campaigns, and more.</p><a href="#contact" class="sarr">Get Started →</a></div>
     <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">✏️</span><span class="snum">04</span><div class="sname">Graphic Design</div><p class="stxt">Posters, social media assets, packaging, pitch decks — every pixel crafted with intent to stop the scroll.</p><a href="#contact" class="sarr">Get Started →</a></div>
     <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">📱</span><span class="snum">05</span><div class="sname">Social Media Content</div><p class="stxt">Consistent, on-brand content calendars with high-quality visuals built to grow your audience and engagement.</p><a href="#contact" class="sarr">Get Started →</a></div>
-    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🚀</span><span class="snum">06</span><div class="sname">Full Campaign Package</div><p class="stxt">Strategy + brand + production + distribution — complete end-to-end for brands ready to make a real statement.</p><a href="#packages" class="sarr">See Packages →</a></div>
+    <div class="sc reveal"><div class="sc-glow"></div><div class="scb"></div><span class="sico">🚀</span><span class="snum">06</span><div class="sname">Full Campaign Package</div><p class="stxt">Strategy + brand + production + distribution — complete end-to-end for brands ready to make a real statement.</p><a href="#contact" class="sarr">Get In Touch →</a></div>
   </div>
 </section>
 
@@ -772,82 +730,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   </div>
 </section>
 
-<!-- PACKAGES -->
-<section id="packages">
-  <div class="reveal">
-    <div class="sl">Packages</div>
-    <h2 class="ptitle">Pick your package.</h2>
-    <p class="psub">Every package includes our full attention and craft. Get in touch and we'll find the right fit for your budget and goals.</p>
-  </div>
-  <div class="pgrid">
-    <div class="pc reveal">
-      <div class="pname">Creative Consultation</div>
-      <div class="pprice">RM xxx</div>
-      <div class="pper">strategy & concept session</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Creative Brief & Discovery Session</li>
-        <li>Concept Development</li>
-        <li>Mood Board & Visual Direction</li>
-        <li>Pre-Production Planning</li>
-        <li>Script / Storyboard Outline</li>
-        <li class="dm">Top Up: Logo Design</li>
-        <li class="dm">Top Up: Typography System</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-o">Enquire Now</a>
-    </div>
-    <div class="pc feat reveal">
-      <div class="pbadge">Most Popular</div>
-      <div class="pname">Video Production</div>
-      <div class="pprice">RM x,xxx</div>
-      <div class="pper">complete video package</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Full Pre-Production Planning</li>
-        <li>1-Day Shoot (Camera + Crew)</li>
-        <li>Professional Editing & Color Grade</li>
-        <li>Music Licensing</li>
-        <li>1× Finished Video (up to 3 min)</li>
-        <li>Short-form Cut (Reel / TikTok)</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-f">Enquire Now</a>
-    </div>
-    <div class="pc reveal">
-      <div class="pname">Full Campaign</div>
-      <div class="pprice">RM x,xxx+</div>
-      <div class="pper">end-to-end creative</div>
-      <div class="pdiv"></div>
-      <ul class="plist">
-        <li>Everything in Video Production</li>
-        <li>Multi-Video Campaign</li>
-        <li>Creative Strategy & Direction</li>
-        <li>Campaign Photography</li>
-        <li>Content Calendar (1 month)</li>
-        <li>Dedicated Account Manager</li>
-        <li>Logo & Typography (Included)</li>
-      </ul>
-      <a href="#contact" class="pcta pcta-o">Let's Talk</a>
-    </div>
-  </div>
-  <div class="mob-pkg">
-    <div class="mpk">
-      <div class="mpk-name">Creative & Consultation</div>
-      <div class="mpk-price">RM xxx</div>
-      <div class="mpk-sub">Strategy & concept</div>
-      <div class="mpk-desc">Brief, concept development, mood board, visual direction & pre-production planning. Logo design available as top-up.</div>
-      <a href="#contact" class="o">Enquire Now</a>
-    </div>
-    <div class="mpk feat">
-      <div class="mpk-name">Video Production & Campaign</div>
-      <div class="mpk-price">RM x,xxx+</div>
-      <div class="mpk-sub">Full production to end-to-end</div>
-      <div class="mpk-desc">Complete shoot, editing & colour grade to full multi-video campaigns with creative direction, photography & branding included.</div>
-      <a href="#contact">Enquire Now</a>
-    </div>
-  </div>
-  <p style="text-align:center;margin-top:28px;font-size:.82rem;color:var(--silver);">✦ Logo design &amp; typography system available as a Top Up for the Creative Consultation package — <a href="#contact" style="color:var(--cyan);text-decoration:none;">enquire for pricing</a></p>
-</section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="cwrap">
@@ -910,7 +792,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   <p>© 2025 SIA Stud. All rights reserved.</p>
   <div class="ftlinks">
     <a href="#about">About</a><a href="#services">Services</a>
-    <a href="#packages">Packages</a><a href="#work">Work</a>
+    <a href="#work">Work</a>
     <a href="#contact">Contact</a>
     <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
   </div>
