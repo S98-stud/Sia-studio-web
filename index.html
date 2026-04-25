@@ -28,8 +28,20 @@
   --glowBig:  0 0 80px rgba(56,232,255,0.5);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+html{height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow:hidden;height:100%;}
+
+/* PAGES CONTAINER */
+#pages{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+section{height:100vh;overflow-y:auto;box-sizing:border-box;scroll-snap-align:start;}
+
+/* PAGE DOTS */
+#pagedots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:14px;align-items:flex-end;}
+.pdot{width:8px;height:8px;border-radius:50%;background:rgba(56,232,255,.18);border:1.5px solid rgba(56,232,255,.35);transition:all .3s;cursor:pointer;position:relative;flex-shrink:0;}
+.pdot::before{content:attr(data-label);position:absolute;right:18px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);background:rgba(7,9,26,.85);padding:4px 10px;border-radius:6px;opacity:0;transition:opacity .2s;pointer-events:none;font-family:'DM Sans',sans-serif;}
+.pdot:hover::before,.pdot.active::before{opacity:1;}
+.pdot.active{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 14px rgba(56,232,255,.55);transform:scale(1.5);}
+body.mobile-view #pagedots{display:none;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:20px 56px;transition:background .4s,padding .35s;}
@@ -353,13 +365,27 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 <nav id="nav">
   <a href="#hero" class="nav-logo"><img src="logo.png" alt="SIA Stud."/></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#clients">Clients</a></li>
-    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+    <li><a href="#about" data-nav="about">About</a></li>
+    <li><a href="#services" data-nav="services">Services</a></li>
+    <li><a href="#process" data-nav="process">Process</a></li>
+    <li><a href="#work" data-nav="work">Work</a></li>
+    <li><a href="#clients" data-nav="clients">Clients</a></li>
+    <li><a href="#contact" data-nav="contact" class="nav-cta">Let's Talk</a></li>
   </ul>
 </nav>
+
+<!-- PAGE DOTS -->
+<div id="pagedots">
+  <span class="pdot active" data-target="hero"   data-label="Home"></span>
+  <span class="pdot"        data-target="about"   data-label="About"></span>
+  <span class="pdot"        data-target="services" data-label="Services"></span>
+  <span class="pdot"        data-target="process"  data-label="Process"></span>
+  <span class="pdot"        data-target="work"     data-label="Work"></span>
+  <span class="pdot"        data-target="clients"  data-label="Clients"></span>
+  <span class="pdot"        data-target="contact"  data-label="Contact"></span>
+</div>
+
+<div id="pages">
 
 <!-- HERO -->
 <section id="hero">
@@ -380,14 +406,6 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   </div>
   <div class="hero-si"><div class="sbar"></div><span class="slbl">Scroll to explore</span></div>
 </section>
-
-<!-- MARQUEE -->
-<div class="mwrap">
-  <div class="mtrack">
-    <div class="mi"><span>✦</span> Idea Development</div><div class="mi"><span>✦</span> Brand Identity</div><div class="mi"><span>✦</span> Video Production</div><div class="mi"><span>✦</span> Photo Editing</div><div class="mi"><span>✦</span> Creative Strategy</div><div class="mi"><span>✦</span> Graphic Design</div><div class="mi"><span>✦</span> Visual Storytelling</div><div class="mi"><span>✦</span> SIA Stud.</div>
-    <div class="mi"><span>✦</span> Idea Development</div><div class="mi"><span>✦</span> Brand Identity</div><div class="mi"><span>✦</span> Video Production</div><div class="mi"><span>✦</span> Photo Editing</div><div class="mi"><span>✦</span> Creative Strategy</div><div class="mi"><span>✦</span> Graphic Design</div><div class="mi"><span>✦</span> Visual Storytelling</div><div class="mi"><span>✦</span> SIA Stud.</div>
-  </div>
-</div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -784,19 +802,19 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
       <button class="fbtn" onclick="handleSubmit(this)">Send Message →</button>
     </div>
   </div>
+  <footer>
+    <a href="#hero" class="ftlogo"><img src="logo.png" alt="SIA Stud."/></a>
+    <p>© 2025 SIA Stud. All rights reserved.</p>
+    <div class="ftlinks">
+      <a href="#about">About</a><a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
+    </div>
+  </footer>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <a href="#hero" class="ftlogo"><img src="logo.png" alt="SIA Stud."/></a>
-  <p>© 2025 SIA Stud. All rights reserved.</p>
-  <div class="ftlinks">
-    <a href="#about">About</a><a href="#services">Services</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-    <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
-  </div>
-</footer>
+</div><!-- /#pages -->
 
 <!-- VIDEO MODAL -->
 <div class="vmodal" id="vModal">
@@ -828,11 +846,63 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
 })();
 
-/* ── NAV ── */
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+/* ── PAGES & NAV ── */
+(function(){
+  const pagesEl=document.getElementById('pages');
+  const nav=document.getElementById('nav');
+  const dots=[...document.querySelectorAll('.pdot')];
+  const sections=[...document.querySelectorAll('section[id]')];
+
+  /* nav scrolled style */
+  pagesEl.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',pagesEl.scrollTop>60);
+    updateDots();
+  });
+
+  /* dot / active tracking */
+  function updateDots(){
+    const mid=pagesEl.scrollTop+window.innerHeight/2;
+    let current=sections[0];
+    sections.forEach(s=>{if(s.offsetTop<=mid)current=s;});
+    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===current.id));
+  }
+
+  /* scroll to section helper */
+  function scrollTo(id){
+    const el=document.getElementById(id);
+    if(el)pagesEl.scrollTo({top:el.offsetTop,behavior:'smooth'});
+  }
+
+  /* dot clicks */
+  dots.forEach(d=>d.addEventListener('click',()=>scrollTo(d.dataset.target)));
+
+  /* nav link clicks */
+  document.querySelectorAll('[data-nav]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      scrollTo(a.dataset.nav);
+    });
+  });
+
+  /* footer link clicks */
+  document.querySelectorAll('footer a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      scrollTo(a.getAttribute('href').slice(1));
+    });
+  });
+
+  /* logo click */
+  document.querySelector('.nav-logo')?.addEventListener('click',e=>{
+    e.preventDefault();
+    scrollTo('hero');
+  });
+
+  updateDots();
+})();
 
 /* ── REVEAL ── */
-const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
 
 
@@ -959,13 +1029,13 @@ function handleSubmit(b){
     box.classList.toggle('reel',!!isReel);
     frame.classList.toggle('reel',!!isReel);
     modal.classList.add('open');
-    document.body.style.overflow='hidden';
+    document.getElementById('pages').style.overflow='hidden';
   }
 
   function closeModal(){
     modal.classList.remove('open');
     iframe.src='';
-    document.body.style.overflow='';
+    document.getElementById('pages').style.overflow='';
   }
 
   overlay.addEventListener('click',closeModal);
