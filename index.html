@@ -32,8 +32,9 @@ html{height:100%;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow:hidden;height:100%;}
 
 /* PAGES CONTAINER */
-#pages{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;}
-section{height:100vh;overflow-y:auto;box-sizing:border-box;scroll-snap-align:start;}
+#pages{position:relative;height:100vh;overflow:hidden;}
+section{position:absolute;top:0;left:0;width:100%;height:100vh;overflow-y:auto;box-sizing:border-box;opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;transform:translateY(18px);z-index:0;}
+section.active{opacity:1;pointer-events:all;transform:translateY(0);z-index:1;}
 
 /* PAGE DOTS */
 #pagedots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:14px;align-items:flex-end;}
@@ -396,7 +397,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 <div id="pages">
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" class="active">
   <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
   <div class="grid-overlay"></div>
   <div class="hero-content">
@@ -860,59 +861,54 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
 })();
 
-/* ── PAGES & NAV ── */
+/* ── PAGE SWITCHER ── */
 (function(){
-  const pagesEl=document.getElementById('pages');
   const nav=document.getElementById('nav');
   const dots=[...document.querySelectorAll('.pdot')];
   const sections=[...document.querySelectorAll('section[id]')];
+  let current='hero';
 
-  /* nav scrolled style */
-  pagesEl.addEventListener('scroll',()=>{
-    nav.classList.toggle('scrolled',pagesEl.scrollTop>60);
-    updateDots();
-  });
-
-  /* dot / active tracking */
-  function updateDots(){
-    const mid=pagesEl.scrollTop+window.innerHeight/2;
-    let current=sections[0];
-    sections.forEach(s=>{if(s.offsetTop<=mid)current=s;});
-    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===current.id));
-  }
-
-  /* scroll to section helper */
-  function scrollTo(id){
-    const el=document.getElementById(id);
-    if(el)pagesEl.scrollTo({top:el.offsetTop,behavior:'smooth'});
+  function showPage(id){
+    if(id===current)return;
+    const prev=document.getElementById(current);
+    const next=document.getElementById(id);
+    if(!next)return;
+    /* reset scroll position of incoming page */
+    next.scrollTop=0;
+    prev?.classList.remove('active');
+    next.classList.add('active');
+    current=id;
+    /* nav style: hero has no scrolled background, inner pages always do */
+    nav.classList.toggle('scrolled',id!=='hero');
+    /* dots */
+    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===id));
+    /* trigger reveal on newly visible page */
+    next.querySelectorAll('.reveal:not(.visible)').forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight)el.classList.add('visible');
+    });
   }
 
   /* dot clicks */
-  dots.forEach(d=>d.addEventListener('click',()=>scrollTo(d.dataset.target)));
+  dots.forEach(d=>d.addEventListener('click',()=>showPage(d.dataset.target)));
 
   /* nav link clicks */
   document.querySelectorAll('[data-nav]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      e.preventDefault();
-      scrollTo(a.dataset.nav);
-    });
+    a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.nav);});
   });
 
-  /* footer link clicks */
-  document.querySelectorAll('footer a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      e.preventDefault();
-      scrollTo(a.getAttribute('href').slice(1));
-    });
+  /* inline anchor clicks (hero buttons, footer links, etc.) */
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href^="#"]');
+    if(!a||a.dataset.nav)return;
+    const id=a.getAttribute('href').slice(1);
+    if(document.getElementById(id)?.matches('section')){
+      e.preventDefault();showPage(id);
+    }
   });
 
-  /* logo click */
-  document.querySelector('.nav-logo')?.addEventListener('click',e=>{
-    e.preventDefault();
-    scrollTo('hero');
-  });
-
-  updateDots();
+  /* init nav state */
+  nav.classList.remove('scrolled');
 })();
 
 /* ── REVEAL ── */
@@ -1043,13 +1039,11 @@ function handleSubmit(b){
     box.classList.toggle('reel',!!isReel);
     frame.classList.toggle('reel',!!isReel);
     modal.classList.add('open');
-    document.getElementById('pages').style.overflow='hidden';
   }
 
   function closeModal(){
     modal.classList.remove('open');
     iframe.src='';
-    document.getElementById('pages').style.overflow='';
   }
 
   overlay.addEventListener('click',closeModal);
