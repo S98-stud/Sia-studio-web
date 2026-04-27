@@ -28,25 +28,13 @@
   --glowBig:  0 0 80px rgba(56,232,255,0.5);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
-
-/* PAGES CONTAINER */
-#pages{/* layout wrapper only */}
-section{height:100vh;overflow-y:auto;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always;}
-
-/* PAGE DOTS */
-#pagedots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:14px;align-items:flex-end;}
-.pdot{width:8px;height:8px;border-radius:50%;background:rgba(56,232,255,.18);border:1.5px solid rgba(56,232,255,.35);transition:all .3s;cursor:pointer;position:relative;flex-shrink:0;}
-.pdot::before{content:attr(data-label);position:absolute;right:18px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);background:rgba(7,9,26,.85);padding:4px 10px;border-radius:6px;opacity:0;transition:opacity .2s;pointer-events:none;font-family:'DM Sans',sans-serif;}
-.pdot:hover::before,.pdot.active::before{opacity:1;}
-.pdot.active{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 14px rgba(56,232,255,.55);transform:scale(1.5);}
-body.mobile-view #pagedots{display:none;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:20px 56px;transition:background .4s,padding .35s;}
 nav.scrolled{background:rgba(7,9,26,.94);backdrop-filter:blur(18px);padding:13px 56px;border-bottom:1px solid var(--border);}
-.nav-logo img{height:44px;width:auto;}
+.nav-logo img{height:44px;width:auto;mix-blend-mode:screen;}
 
 .nav-links{display:flex;gap:30px;list-style:none;align-items:center;}
 .nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .2s;}
@@ -110,11 +98,6 @@ section{padding:110px 56px;position:relative;}
 .sl{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;}
 .sl::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--cyan);}
 
-/* INNER PAGES */
-section.inner{background:var(--bg2);}
-.ipbar{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),rgba(56,232,255,0) 60%);opacity:.4;pointer-events:none;}
-.ipnum{position:absolute;top:26px;right:56px;font-family:'Syne',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:.45;pointer-events:none;}
-body.mobile-view .ipnum{right:24px;}
 
 /* ABOUT */
 #about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
@@ -371,27 +354,14 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 <nav id="nav">
   <a href="#hero" class="nav-logo"><img src="logo.png" alt="SIA Stud."/></a>
   <ul class="nav-links">
-    <li><a href="#about" data-nav="about">About</a></li>
-    <li><a href="#services" data-nav="services">Services</a></li>
-    <li><a href="#process" data-nav="process">Process</a></li>
-    <li><a href="#work" data-nav="work">Work</a></li>
-    <li><a href="#clients" data-nav="clients">Clients</a></li>
-    <li><a href="#contact" data-nav="contact" class="nav-cta">Let's Talk</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
   </ul>
 </nav>
-
-<!-- PAGE DOTS -->
-<div id="pagedots">
-  <span class="pdot active" data-target="hero"   data-label="Home"></span>
-  <span class="pdot"        data-target="about"   data-label="About"></span>
-  <span class="pdot"        data-target="services" data-label="Services"></span>
-  <span class="pdot"        data-target="process"  data-label="Process"></span>
-  <span class="pdot"        data-target="work"     data-label="Work"></span>
-  <span class="pdot"        data-target="clients"  data-label="Clients"></span>
-  <span class="pdot"        data-target="contact"  data-label="Contact"></span>
-</div>
-
-<div id="pages">
 
 <!-- HERO -->
 <section id="hero">
@@ -414,8 +384,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="inner">
-  <div class="ipbar"></div><span class="ipnum">02 / 07</span>
+<section id="about">
   <div class="reveal">
     <div class="sl">Who We Are</div>
     <h2 class="at">We turn <em>vision</em><br>into visual power.</h2>
@@ -437,8 +406,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="inner">
-  <div class="ipbar"></div><span class="ipnum">03 / 07</span>
+<section id="services">
   <div class="shd reveal">
     <div><div class="sl">What We Do</div><h2 class="stitle">Creative services that hit different.</h2></div>
     <p class="ssub">Every service built around one goal: making your brand impossible to ignore.</p>
@@ -454,8 +422,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- PROCESS -->
-<section id="process" class="inner">
-  <div class="ipbar"></div><span class="ipnum">04 / 07</span>  <div class="sl reveal">How We Work</div>
+<section id="process">
+  <div class="sl reveal">How We Work</div>
   <h2 class="prtitle reveal">Our creative process,<br>step by step.</h2>
   <div class="prsteps">
     <div class="prstep reveal"><div class="prn">01</div><div class="prt">Discover</div><p class="prd">Deep listening — understanding your brand, audience, goals, and the story you want to tell.</p></div>
@@ -466,8 +434,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- WORK -->
-<section id="work" class="inner">
-  <div class="ipbar"></div><span class="ipnum">05 / 07</span>  <div class="whd reveal">
+<section id="work">
+  <div class="whd reveal">
     <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
     <a href="#contact" class="btn-outline">Start Your Project →</a>
   </div>
@@ -736,8 +704,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- CLIENTS -->
-<section id="clients" class="inner">
-  <div class="ipbar"></div><span class="ipnum">06 / 07</span>  <div class="reveal">
+<section id="clients">
+  <div class="reveal">
     <div class="sl">Our Clients</div>
     <h2 class="ctitle">Brands that trust us.</h2>
     <p class="csub">We've had the privilege of working with amazing clients across various industries.</p>
@@ -757,8 +725,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="inner">
-  <div class="ipbar"></div><span class="ipnum">07 / 07</span>  <div class="cwrap">
+<section id="contact">
+  <div class="cwrap">
     <div class="reveal">
       <div class="sl">Get In Touch</div>
       <h2 class="cot">Let's create<br>something great.</h2>
@@ -810,19 +778,19 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
       <button class="fbtn" onclick="handleSubmit(this)">Send Message →</button>
     </div>
   </div>
-  <footer>
-    <a href="#hero" class="ftlogo"><img src="logo.png" alt="SIA Stud."/></a>
-    <p>© 2025 SIA Stud. All rights reserved.</p>
-    <div class="ftlinks">
-      <a href="#about">About</a><a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
-      <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
-    </div>
-  </footer>
+  </div>
 </section>
 
-</div><!-- /#pages -->
+<footer>
+  <a href="#hero" class="ftlogo"><img src="logo.png" alt="SIA Stud."/></a>
+  <p>© 2025 SIA Stud. All rights reserved.</p>
+  <div class="ftlinks">
+    <a href="#about">About</a><a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+    <a href="admin.html" style="opacity:.25;font-size:.7rem;">⚙ Admin</a>
+  </div>
+</footer>
 
 <!-- VIDEO MODAL -->
 <div class="vmodal" id="vModal">
@@ -854,46 +822,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
 })();
 
-/* ── PAGES & NAV ── */
-(function(){
-  const nav=document.getElementById('nav');
-  const dots=[...document.querySelectorAll('.pdot')];
-  const sections=[...document.querySelectorAll('section[id]')];
-
-  window.addEventListener('scroll',()=>{
-    nav.classList.toggle('scrolled',window.scrollY>60);
-    updateDots();
-  },{passive:true});
-
-  function updateDots(){
-    const mid=window.scrollY+window.innerHeight/2;
-    let current=sections[0];
-    sections.forEach(s=>{if(s.offsetTop<=mid)current=s;});
-    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===current.id));
-  }
-
-  function goTo(id){
-    const el=document.getElementById(id);
-    if(el)el.scrollIntoView({behavior:'smooth'});
-  }
-
-  dots.forEach(d=>d.addEventListener('click',()=>goTo(d.dataset.target)));
-
-  document.querySelectorAll('[data-nav]').forEach(a=>{
-    a.addEventListener('click',e=>{e.preventDefault();goTo(a.dataset.nav);});
-  });
-
-  document.addEventListener('click',e=>{
-    const a=e.target.closest('a[href^="#"]');
-    if(!a||a.dataset.nav)return;
-    const id=a.getAttribute('href').slice(1);
-    if(document.getElementById(id)?.matches('section')){
-      e.preventDefault();goTo(id);
-    }
-  });
-
-  updateDots();
-})();
+/* ── NAV ── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60),{passive:true});
 
 /* ── REVEAL ── */
 const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.08});
