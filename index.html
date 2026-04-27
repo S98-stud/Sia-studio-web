@@ -32,9 +32,8 @@ html{height:100%;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow:hidden;height:100%;}
 
 /* PAGES CONTAINER */
-#pages{position:relative;height:100vh;overflow:hidden;}
-section{position:absolute;top:0;left:0;width:100%;height:100vh;overflow-y:auto;box-sizing:border-box;opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;transform:translateY(18px);z-index:0;}
-section.active{opacity:1;pointer-events:all;transform:translateY(0);z-index:1;}
+#pages{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+section{height:100vh;overflow-y:auto;box-sizing:border-box;scroll-snap-align:start;}
 
 /* PAGE DOTS */
 #pagedots{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:14px;align-items:flex-end;}
@@ -115,8 +114,6 @@ section{padding:110px 56px;position:relative;}
 section.inner{background:var(--bg2);}
 .ipbar{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),rgba(56,232,255,0) 60%);opacity:.4;pointer-events:none;}
 .ipnum{position:absolute;top:26px;right:56px;font-family:'Syne',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:.45;pointer-events:none;}
-.iplabel{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;font-family:'Syne',sans-serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);opacity:.22;pointer-events:none;white-space:nowrap;}
-body.mobile-view .iplabel{display:none;}
 body.mobile-view .ipnum{right:24px;}
 
 /* ABOUT */
@@ -397,7 +394,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 <div id="pages">
 
 <!-- HERO -->
-<section id="hero" class="active">
+<section id="hero">
   <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
   <div class="grid-overlay"></div>
   <div class="hero-content">
@@ -418,7 +415,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- ABOUT -->
 <section id="about" class="inner">
-  <div class="ipbar"></div><span class="ipnum">02 / 07</span><span class="iplabel">About</span>
+  <div class="ipbar"></div><span class="ipnum">02 / 07</span>
   <div class="reveal">
     <div class="sl">Who We Are</div>
     <h2 class="at">We turn <em>vision</em><br>into visual power.</h2>
@@ -441,7 +438,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- SERVICES -->
 <section id="services" class="inner">
-  <div class="ipbar"></div><span class="ipnum">03 / 07</span><span class="iplabel">Services</span>
+  <div class="ipbar"></div><span class="ipnum">03 / 07</span>
   <div class="shd reveal">
     <div><div class="sl">What We Do</div><h2 class="stitle">Creative services that hit different.</h2></div>
     <p class="ssub">Every service built around one goal: making your brand impossible to ignore.</p>
@@ -458,8 +455,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- PROCESS -->
 <section id="process" class="inner">
-  <div class="ipbar"></div><span class="ipnum">04 / 07</span><span class="iplabel">Process</span>
-  <div class="sl reveal">How We Work</div>
+  <div class="ipbar"></div><span class="ipnum">04 / 07</span>  <div class="sl reveal">How We Work</div>
   <h2 class="prtitle reveal">Our creative process,<br>step by step.</h2>
   <div class="prsteps">
     <div class="prstep reveal"><div class="prn">01</div><div class="prt">Discover</div><p class="prd">Deep listening — understanding your brand, audience, goals, and the story you want to tell.</p></div>
@@ -471,8 +467,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- WORK -->
 <section id="work" class="inner">
-  <div class="ipbar"></div><span class="ipnum">05 / 07</span><span class="iplabel">Work</span>
-  <div class="whd reveal">
+  <div class="ipbar"></div><span class="ipnum">05 / 07</span>  <div class="whd reveal">
     <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
     <a href="#contact" class="btn-outline">Start Your Project →</a>
   </div>
@@ -742,8 +737,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- CLIENTS -->
 <section id="clients" class="inner">
-  <div class="ipbar"></div><span class="ipnum">06 / 07</span><span class="iplabel">Clients</span>
-  <div class="reveal">
+  <div class="ipbar"></div><span class="ipnum">06 / 07</span>  <div class="reveal">
     <div class="sl">Our Clients</div>
     <h2 class="ctitle">Brands that trust us.</h2>
     <p class="csub">We've had the privilege of working with amazing clients across various industries.</p>
@@ -764,8 +758,7 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 
 <!-- CONTACT -->
 <section id="contact" class="inner">
-  <div class="ipbar"></div><span class="ipnum">07 / 07</span><span class="iplabel">Contact</span>
-  <div class="cwrap">
+  <div class="ipbar"></div><span class="ipnum">07 / 07</span>  <div class="cwrap">
     <div class="reveal">
       <div class="sl">Get In Touch</div>
       <h2 class="cot">Let's create<br>something great.</h2>
@@ -861,54 +854,46 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
   document.addEventListener('click',e=>{const el=e.target.closest('a,button');if(!el)return;const ev=JSON.parse(localStorage.getItem(EK)||'[]');ev.push({type:'click',label:(el.textContent||'').trim().substring(0,40),t:new Date().toISOString()});if(ev.length>1200)ev.splice(0,ev.length-1200);localStorage.setItem(EK,JSON.stringify(ev));});
 })();
 
-/* ── PAGE SWITCHER ── */
+/* ── PAGES & NAV ── */
 (function(){
+  const pagesEl=document.getElementById('pages');
   const nav=document.getElementById('nav');
   const dots=[...document.querySelectorAll('.pdot')];
   const sections=[...document.querySelectorAll('section[id]')];
-  let current='hero';
 
-  function showPage(id){
-    if(id===current)return;
-    const prev=document.getElementById(current);
-    const next=document.getElementById(id);
-    if(!next)return;
-    /* reset scroll position of incoming page */
-    next.scrollTop=0;
-    prev?.classList.remove('active');
-    next.classList.add('active');
-    current=id;
-    /* nav style: hero has no scrolled background, inner pages always do */
-    nav.classList.toggle('scrolled',id!=='hero');
-    /* dots */
-    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===id));
-    /* trigger reveal on newly visible page */
-    next.querySelectorAll('.reveal:not(.visible)').forEach(el=>{
-      const r=el.getBoundingClientRect();
-      if(r.top<window.innerHeight)el.classList.add('visible');
-    });
-  }
-
-  /* dot clicks */
-  dots.forEach(d=>d.addEventListener('click',()=>showPage(d.dataset.target)));
-
-  /* nav link clicks */
-  document.querySelectorAll('[data-nav]').forEach(a=>{
-    a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.nav);});
+  pagesEl.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',pagesEl.scrollTop>60);
+    updateDots();
   });
 
-  /* inline anchor clicks (hero buttons, footer links, etc.) */
+  function updateDots(){
+    const mid=pagesEl.scrollTop+window.innerHeight/2;
+    let current=sections[0];
+    sections.forEach(s=>{if(s.offsetTop<=mid)current=s;});
+    dots.forEach(d=>d.classList.toggle('active',d.dataset.target===current.id));
+  }
+
+  function scrollTo(id){
+    const el=document.getElementById(id);
+    if(el)pagesEl.scrollTo({top:el.offsetTop,behavior:'smooth'});
+  }
+
+  dots.forEach(d=>d.addEventListener('click',()=>scrollTo(d.dataset.target)));
+
+  document.querySelectorAll('[data-nav]').forEach(a=>{
+    a.addEventListener('click',e=>{e.preventDefault();scrollTo(a.dataset.nav);});
+  });
+
   document.addEventListener('click',e=>{
     const a=e.target.closest('a[href^="#"]');
     if(!a||a.dataset.nav)return;
     const id=a.getAttribute('href').slice(1);
     if(document.getElementById(id)?.matches('section')){
-      e.preventDefault();showPage(id);
+      e.preventDefault();scrollTo(id);
     }
   });
 
-  /* init nav state */
-  nav.classList.remove('scrolled');
+  updateDots();
 })();
 
 /* ── REVEAL ── */
