@@ -110,6 +110,14 @@ section{padding:110px 56px;position:relative;}
 .sl{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;}
 .sl::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--cyan);}
 
+/* INNER PAGES */
+section.inner{background:var(--bg2);}
+.ipbar{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),rgba(56,232,255,0) 60%);opacity:.4;pointer-events:none;}
+.ipnum{position:absolute;top:26px;right:56px;font-family:'Syne',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:.45;pointer-events:none;}
+.iplabel{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;font-family:'Syne',sans-serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);opacity:.22;pointer-events:none;white-space:nowrap;}
+body.mobile-view .iplabel{display:none;}
+body.mobile-view .ipnum{right:24px;}
+
 /* ABOUT */
 #about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
 .at{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,3.8vw,3.6rem);letter-spacing:-2px;line-height:1.06;margin-bottom:24px;}
@@ -408,7 +416,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" class="inner">
+  <div class="ipbar"></div><span class="ipnum">02 / 07</span><span class="iplabel">About</span>
   <div class="reveal">
     <div class="sl">Who We Are</div>
     <h2 class="at">We turn <em>vision</em><br>into visual power.</h2>
@@ -430,7 +439,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- SERVICES -->
-<section id="services">
+<section id="services" class="inner">
+  <div class="ipbar"></div><span class="ipnum">03 / 07</span><span class="iplabel">Services</span>
   <div class="shd reveal">
     <div><div class="sl">What We Do</div><h2 class="stitle">Creative services that hit different.</h2></div>
     <p class="ssub">Every service built around one goal: making your brand impossible to ignore.</p>
@@ -446,7 +456,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- PROCESS -->
-<section id="process">
+<section id="process" class="inner">
+  <div class="ipbar"></div><span class="ipnum">04 / 07</span><span class="iplabel">Process</span>
   <div class="sl reveal">How We Work</div>
   <h2 class="prtitle reveal">Our creative process,<br>step by step.</h2>
   <div class="prsteps">
@@ -458,7 +469,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- WORK -->
-<section id="work">
+<section id="work" class="inner">
+  <div class="ipbar"></div><span class="ipnum">05 / 07</span><span class="iplabel">Work</span>
   <div class="whd reveal">
     <div><div class="sl">Portfolio</div><h2 class="wtitle">What we've made.</h2></div>
     <a href="#contact" class="btn-outline">Start Your Project →</a>
@@ -728,7 +740,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- CLIENTS -->
-<section id="clients">
+<section id="clients" class="inner">
+  <div class="ipbar"></div><span class="ipnum">06 / 07</span><span class="iplabel">Clients</span>
   <div class="reveal">
     <div class="sl">Our Clients</div>
     <h2 class="ctitle">Brands that trust us.</h2>
@@ -749,7 +762,8 @@ body.mobile-view .stats{grid-template-columns:repeat(3,1fr);}
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" class="inner">
+  <div class="ipbar"></div><span class="ipnum">07 / 07</span><span class="iplabel">Contact</span>
   <div class="cwrap">
     <div class="reveal">
       <div class="sl">Get In Touch</div>
