@@ -120,6 +120,16 @@ a{color:inherit;}
 .lslot img{max-width:110px;max-height:50px;object-fit:contain;filter:brightness(0) invert(1);opacity:.55;transition:opacity .3s,filter .3s;}
 .lslot:hover img{opacity:1;filter:none;}
 
+/* ── ABOUT (text document) ── */
+.win.doc{width:min(620px,calc(100vw - 48px));height:auto;max-height:min(86vh,calc(100vh - 92px));}
+.doc .wbody{padding:40px 44px 44px;}
+.doc-logo{height:46px;display:block;margin-bottom:28px;filter:drop-shadow(0 0 18px rgba(56,232,255,.5));}
+.doc p{font-size:1.05rem;line-height:1.8;color:var(--offwhite);margin-bottom:16px;}
+.doc p:first-of-type{font-family:'Syne',sans-serif;font-weight:700;font-size:1.35rem;line-height:1.4;color:var(--white);}
+.doc .doc-tags{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin:26px 0 22px;}
+.doc a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(56,232,255,.4);}
+.doc a:hover{border-color:var(--cyan);}
+
 /* ── CONTACT ── */
 .cwrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
 .cmethods{display:flex;flex-direction:column;gap:12px;margin-top:28px;}
@@ -450,64 +460,17 @@ a{color:inherit;}
 </section>
 
 <!-- ABOUT WINDOW -->
-<section class="win small" id="about" role="dialog" aria-label="About">
+<section class="win doc" id="about" role="dialog" aria-label="About">
   <div class="wbar"><div class="lights"><i class="x" data-close></i><i></i><i></i></div><div class="wtitle-bar">About.rtf</div></div>
   <div class="wbody">
-    <div class="about-top">
-      <div>
-        <div class="sl">Who We Are</div>
-        <h2 class="h">We make <span class="glowtext">ideas</span><br>come alive.</h2>
-        <p class="p">SIA Stud. is a full-service creative studio for brands that refuse to be ordinary. We combine deep concept thinking with sharp production craft — from the first spark of an idea to the final frame.</p>
-        <p class="p">Based in Kuala Lumpur, working globally. Every great project starts with one bold question: <em>what do you really want to say?</em></p>
-        <div class="stats">
-          <div class="stat"><div class="sn">50+</div><div class="sl2">Projects Done</div></div>
-          <div class="stat"><div class="sn">30+</div><div class="sl2">Happy Clients</div></div>
-          <div class="stat"><div class="sn">3+</div><div class="sl2">Years Creative</div></div>
-        </div>
-      </div>
-      <div class="about-logo"><img src="logo.png" alt="SIA Stud."/></div>
-    </div>
-
-    <div class="block">
-      <div class="sl">What We Do</div>
-      <div class="list">
-        <div class="li"><small>01</small><b>Idea Development</b><p>Concepts that are strategically sharp and impossible to copy.</p></div>
-        <div class="li"><small>02</small><b>Brand & Visual Identity</b><p>Logos, colour systems, typography and brand guidelines.</p></div>
-        <div class="li"><small>03</small><b>Video & Photo Production</b><p>Ads, reels and campaigns — from pre-production to final edit.</p></div>
-        <div class="li"><small>04</small><b>Graphic Design</b><p>Posters, social assets, packaging and pitch decks.</p></div>
-        <div class="li"><small>05</small><b>Social Media Content</b><p>On-brand content calendars built to grow your audience.</p></div>
-        <div class="li"><small>06</small><b>Full Campaign Package</b><p>Strategy, brand, production and distribution, end to end.</p></div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="sl">How We Work</div>
-      <div class="list four">
-        <div class="li"><small>01</small><b>Discover</b><p>Understanding your brand, audience and goals.</p></div>
-        <div class="li"><small>02</small><b>Conceive</b><p>Mood boards and concepts into sharp creative direction.</p></div>
-        <div class="li"><small>03</small><b>Create</b><p>Shooting, designing and editing with precision.</p></div>
-        <div class="li"><small>04</small><b>Deliver</b><p>Refinements and delivery in every format you need.</p></div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="sl">Brands That Trust Us</div>
-      <div class="lgrid">
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Tencent_Logo.svg" alt="Tencent"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/HSBC_logo_%282018%29.svg" alt="HSBC"/></div>
-    <div class="lslot"><img src="https://download.logo.wine/logo/U_Mobile/U_Mobile-Logo.wine.png" alt="U Mobile"/></div>
-    <div class="lslot"><img src="https://www.begolfpro.com/wp-content/uploads/2020/12/original-logo.png" alt="BeGolfPro"/></div>
-    <div class="lslot"><img src="https://drive.google.com/thumbnail?id=1WnYQP96CJ3yj8TQlQjHEBJHlp1aWr4vH&sz=w300" alt="Moonton"/></div>
-    <div class="lslot"><img src="https://drive.google.com/thumbnail?id=1dFcRekF1mppG0-zPVo-yD1rJv0IDPVkE&sz=w300" alt="1664"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/d/d8/JD_Sports_logo.svg" alt="JD Sports"/></div>
-    <div class="lslot"><img src="https://upload.wikimedia.org/wikinews/en/4/43/Lacoste_logo.svg" alt="Lacoste"/></div>
-    <div class="lslot"><img src="https://tntco.co/cdn/shop/files/website_logo_new_black_450x.png?v=1718472732" alt="TNTCO"/></div>
-      </div>
-    </div>
+    <img src="logo.png" alt="SIA Stud." class="doc-logo"/>
+    <p>SIA Stud. is a creative studio based in Kuala Lumpur, Malaysia.</p>
+    <p>We help brands find their big idea and bring it to life — from concept and branding to video production, design and social content.</p>
+    <p>50+ projects, 30+ clients and 3+ years in, we've worked with brands like TikTok, Tencent, HSBC, Lacoste, JD Sports and Moonton.</p>
+    <p class="doc-tags">Concept · Branding · Video &amp; Photo · Graphic Design · Social Media</p>
+    <p>Got an idea? <a href="#contact">Let's talk →</a></p>
   </div>
 </section>
-
 <!-- CONTACT WINDOW -->
 <section class="win small" id="contact" role="dialog" aria-label="Contact">
   <div class="wbar"><div class="lights"><i class="x" data-close></i><i></i><i></i></div><div class="wtitle-bar">Contact</div></div>
