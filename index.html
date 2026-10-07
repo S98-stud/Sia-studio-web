@@ -130,6 +130,11 @@ a{color:inherit;}
 .doc a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(56,232,255,.4);}
 .doc a:hover{border-color:var(--cyan);}
 
+.doc-logos{grid-template-columns:repeat(5,1fr);margin-bottom:28px;border-radius:14px;}
+.doc-logos .lslot{padding:18px 12px;min-height:72px;}
+.doc-logos .lslot img{max-width:84px;max-height:34px;}
+@media(max-width:760px){.doc-logos{grid-template-columns:repeat(3,1fr);}}
+
 /* ── CONTACT ── */
 .cwrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
 .cmethods{display:flex;flex-direction:column;gap:12px;margin-top:28px;}
@@ -468,6 +473,19 @@ a{color:inherit;}
     <p>We help brands find their big idea and bring it to life. From concept and branding to video production, design and social content.</p>
     <p>50+ projects, 30+ clients and 3+ years in, we've worked with brands like TikTok, Tencent, HSBC, Lacoste, JD Sports and Moonton.</p>
     <p class="doc-tags">Concept · Branding · Video &amp; Photo · Graphic Design · Social Media</p>
+    <p class="doc-tags" style="margin-bottom:12px">Brands we've worked with</p>
+    <div class="lgrid doc-logos">
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Tencent_Logo.svg" alt="Tencent"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/HSBC_logo_%282018%29.svg" alt="HSBC"/></div>
+    <div class="lslot"><img src="https://download.logo.wine/logo/U_Mobile/U_Mobile-Logo.wine.png" alt="U Mobile"/></div>
+    <div class="lslot"><img src="https://www.begolfpro.com/wp-content/uploads/2020/12/original-logo.png" alt="BeGolfPro"/></div>
+    <div class="lslot"><img src="https://drive.google.com/thumbnail?id=1WnYQP96CJ3yj8TQlQjHEBJHlp1aWr4vH&sz=w300" alt="Moonton"/></div>
+    <div class="lslot"><img src="https://drive.google.com/thumbnail?id=1dFcRekF1mppG0-zPVo-yD1rJv0IDPVkE&sz=w300" alt="1664"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikipedia/en/d/d8/JD_Sports_logo.svg" alt="JD Sports"/></div>
+    <div class="lslot"><img src="https://upload.wikimedia.org/wikinews/en/4/43/Lacoste_logo.svg" alt="Lacoste"/></div>
+    <div class="lslot"><img src="https://tntco.co/cdn/shop/files/website_logo_new_black_450x.png?v=1718472732" alt="TNTCO"/></div>
+    </div>
     <p>Got an idea? <a href="#contact">Let's talk →</a></p>
   </div>
 </section>
